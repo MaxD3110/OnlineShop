@@ -1,0 +1,225 @@
+﻿@page
+@model Shop.UI.Pages.CompareModel
+@{
+    ViewData["Title"] = "Сравнение";
+}
+
+<style>
+    .table th {
+        
+        border-bottom: 2px solid;
+        border-left: 1px solid;
+        border-color: #ebebeb;
+    }
+    .table td {
+        border-left: 1px solid;
+        border-color: #ebebeb;
+    }
+    .table td:nth-child(1) {
+        text-align: left;
+        border-left: none;
+    }
+</style>
+
+
+<div class="page-header text-center" style="background-image: url('/images/page-header-bg.jpg')">
+    <div class="container">
+        <h1 class="page-title">Сравнение товаров</h1>
+    </div><!-- End .container -->
+</div><!-- End .page-header -->
+<nav aria-label="breadcrumb" class="breadcrumb-nav">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-page="Index">Главная</a></li>
+            <li class="breadcrumb-item"><a asp-page="Shop">Магазин</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Сравнение</li>
+        </ol>
+    </div><!-- End .container -->
+</nav><!-- End .breadcrumb-nav -->
+<partial name="_ComparePartial" model="@Model.Compare" />
+
+
+
+
+
+
+@section scripts {
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+    <script>
+        var products = [];
+
+        var addOneToCompare = function (e) {
+            var stockId = e.target.dataset.stockId;
+            axios.post("/Compare/AddOneCompare/" + stockId)
+                .then(res => {
+                    updateCompare();
+                }).catch(err => {
+                    alert(err.error);
+                })
+        }
+
+        var removeOneFromCompare = function (e) {
+            var stockId = e.target.dataset.stockId;
+            removeFromCompare(stockId);
+        }
+
+        var removeAllFromCompare = function () {
+            var doc = document.getElementsByClassName("icon-close");
+            var count = document.getElementsByClassName("icon-close").length;
+            for (var i = 0; i < count; i++) {
+
+                console.log(doc.length);
+                stockId = doc[i].getAttribute("data-stockid");
+                console.log(stockId);
+                axios.post("/Compare/RemoveCompare/" + stockId)
+
+            updateCompare();
+            }
+            updateCompare();
+        }
+
+        var removeFromCompare = function (stockId) {
+            axios.post("/Compare/RemoveCompare/" + stockId)
+                .then(res => {
+                    updateCompare();
+                }).catch(err => {
+                    alert(err.error);
+                })
+        }
+
+        var updateCompare = function () {
+            axios.get('/Compare/GetCompareMedium')
+                .then(res => {
+                    var html = res.data;
+                    var el = document.getElementById('compare-med');
+
+                    el.outerHTML = html;
+                });
+            axios.get('/Compare/GetCompareMain')
+                .then(res => {
+                    var html = res.data;
+                    var el = document.getElementById('compare-main');
+                    el.outerHTML = html;
+                    window.location.reload();
+                })
+
+        }
+
+        window.onload = function () {
+
+            updateTable(JSON.stringify(@Json.Serialize(Model.Compare)));
+        }
+
+        function updateTable(product) {
+
+            document.getElementById('getObject').value = product;
+            var newstringreplaced = product.replace(/},{/gi, "}%%%,{");
+            products = JSON.parse(newstringreplaced.split("%%%,"));
+
+            console.log(products);
+            for (var i = 0; i < products.length; i++) {
+                console.log(products[i]);
+            }
+            console.log('log');
+
+            var table = document.getElementById("specTable");
+            var result = [];
+            for (var a = 0; a < products.length; a++) {
+
+                result[a] = Object.values(products[a]);
+
+                console.log(result[a]);
+            }
+
+            var info = [
+                'id',
+                'Емкость аккумулятора',
+                'Дисплей',
+                'Встроенный аккумулятор',
+                'Максимальная мощность',
+                'Регулировка мощности',
+                'Объем бака',
+                'Количество затяжек',
+                'Вкус',
+                'VG/PG',
+                'Тип никотина',
+                'Крепость жидкости',
+                'Объем',
+                'MTL',
+                'Количество спиралей',
+                'Обдув',
+                'Тип',
+                'Напряжение',
+                'Длина',
+                'Высота',
+                'Ширина',
+                'Вес',
+                'Время зарядки',
+
+            ];
+
+            console.log(result);
+            if (products.length > 0) {
+
+                let arr = [];
+
+                for (var i = 0; i < products.length; i++) {
+                    arr[i] = [i];
+
+                    var p = 0;
+                    var trash = 0;
+                    for (let val of result[i]) {
+                        if (trash > 9) {
+
+                            arr[i][p] = val;
+                            p++;
+
+                        }
+                        trash++;
+                    }
+                }
+
+            var counter = 0;
+                var empty = 0;
+                var p = 0;
+                for (var i = 0; i < result[0].length; i++) {
+
+                    if (i > 9) {
+
+
+                        counter++;
+                        let row = table.insertRow();
+                        let caption = row.insertCell(0);
+                        caption.innerHTML = "<b>" + info[counter] + "</b>";
+
+                        var emptyCount = 0;
+
+                        for (var a = 0; a < products.length; a++) {
+                            let value = row.insertCell(a + 1);
+                            value.innerHTML = arr[a][p];
+
+                            if (value.innerHTML === " ") {
+
+                                value.innerHTML = "Не указано"
+                                emptyCount++;
+                            }
+                        }
+                        if (emptyCount == products.length) {
+
+                            table.deleteRow((i - 9) - empty);
+                            empty++;
+
+                        }
+
+                        p++;
+                    }
+                }
+                }
+
+
+        }
+    </script>
+}

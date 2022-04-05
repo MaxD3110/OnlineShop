@@ -1,0 +1,931 @@
+﻿@page
+@model Shop.UI.Pages.ShopModel
+@{
+    ViewData["Title"] = "Ассортимент";
+}
+
+<head>
+    <link rel="stylesheet" href="/css/plugins/nouislider/nouislider.css">
+</head>
+
+<body>
+    <div id="app" class="page-wrapper">
+        <main class="main">
+            <div class="page-header text-center" style="background-image: url('/images/page-header-bg.jpg')">
+                <div class="container">
+                    <h1 class="page-title">Ассортимент<span>Магазин</span></h1>
+                </div><!-- End .container -->
+            </div><!-- End .page-header -->
+            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-page="Index">Главная</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Магазин</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+            <div class="page-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="toolbox">
+                                <div class="toolbox-left">
+                                    <div class="toolbox-info">
+                                        Показано <span id="info">35 из {{products.length}}</span> Товаров
+                                    </div><!-- End .toolbox-info -->
+                                </div><!-- End .toolbox-left -->
+
+                                <div class="toolbox-right">
+
+                                    <div class="media-boxes-sort">
+                                        <div class="media-boxes-drop-down" id="sort">
+                                            <div class="media-boxes-drop-down-header"></div>
+                                            <ul class="media-boxes-drop-down-menu">
+                                                <li><a href="#" data-sort-by="original-order" data-sort-ascending="false" class="selected">Нет</a></li>
+                                                <li><a href="#" data-sort-by="title" data-sort-toggle="true">По имени</a></li>
+                                                <li><a href="#" data-sort-by="categories" data-sort-toggle="true">По категории</a></li>
+                                                <li><a href="#" data-sort-by="reviews" data-sort-toggle="true">По оценке</a></li>
+                                                <li><a href="#" data-sort-by="value" data-sort-toggle="true">По цене</a></li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="media-boxes-sort-order">
+                                            <span class="fa fa-chevron-up selected" data-sort-ascending="true"></span>
+                                            <span class="fa fa-chevron-down" data-sort-ascending="false"></span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--<div class="toolbox-layout">
+                                        <a onclick="on2Columns()" class="btn-layout" id="col2">
+                                            <svg width="10" height="10">
+                                                <rect x="0" y="0" width="4" height="4" />
+                                                <rect x="6" y="0" width="4" height="4" />
+                                                <rect x="0" y="6" width="4" height="4" />
+                                                <rect x="6" y="6" width="4" height="4" />
+                                            </svg>
+                                        </a>
+
+                                        <a onclick="on3Columns()" class="btn-layout active" id="col3">
+                                            <svg width="16" height="10">
+                                                <rect x="0" y="0" width="4" height="4" />
+                                                <rect x="6" y="0" width="4" height="4" />
+                                                <rect x="12" y="0" width="4" height="4" />
+                                                <rect x="0" y="6" width="4" height="4" />
+                                                <rect x="6" y="6" width="4" height="4" />
+                                                <rect x="12" y="6" width="4" height="4" />
+                                            </svg>
+                                        </a>
+
+                                        <a onclick="on4Columns()" class="btn-layout " id="col4">
+                                            <svg width="22" height="10">
+                                                <rect x="0" y="0" width="4" height="4" />
+                                                <rect x="6" y="0" width="4" height="4" />
+                                                <rect x="12" y="0" width="4" height="4" />
+                                                <rect x="18" y="0" width="4" height="4" />
+                                                <rect x="0" y="6" width="4" height="4" />
+                                                <rect x="6" y="6" width="4" height="4" />
+                                                <rect x="12" y="6" width="4" height="4" />
+                                                <rect x="18" y="6" width="4" height="4" />
+                                            </svg>
+                                        </a>
+                                    </div>--><!-- End .toolbox-layout -->
+                                </div><!-- End .toolbox-right -->
+                            </div><!-- End .toolbox -->
+
+                            <div class="tab-content tab-content-carousel just-action-icons-sm">
+                                <div class="tab-pane p-0 fade show active" id="trending-all-tab" role="tabpanel" aria-labelledby="trending-all-link">
+                                    <div id="grid">
+
+                                        <div class="media-box col-sm-6 col-lg-4" v-for="(product, index) in products" @@mouseenter="selectProduct(product, index)" name="product"
+                                             v-bind:hidden="!product.isActive"
+                                             v-bind:class="[
+                                             'cost'+product.value,
+                                             product.category,
+                                             product.description,
+                                             'accum'+product.specification[0].accumCapacity,
+                                             'bia'+product.specification[0].builtInAccum,
+                                             'mv'+product.specification[0].maxVoltage,
+                                             'screen'+product.specification[0].screen,
+                                             product.specification[0].liqValue,
+                                             product.specification[0].mtl,
+                                             product.specification[0].nic,
+                                             product.specification[0].nicProp,
+                                             'res'+product.specification[0].amper,
+                                             product.specification[0].obduv,
+                                             'puff'+product.specification[0].puffCol,
+                                             product.specification[0].spiral,
+                                             product.specification[0].vgpg,
+                                             product.specification[0].bakValue,
+                                             ]">
+                                            <div class="product product-2">
+                                                <figure class="product-media" id="productImage">
+                                                    <span class='product-label label-circle label-top' v-if="product.isTrending">Хит</span>
+                                                    <span class='product-label label-circle label-new' v-if="product.isNew">New</span>
+                                                    <span class='product-label label-circle label-sale' v-if="saleLabel(product, index)">%</span>
+                                                    <a :href="returnLink(product.name)">
+                                                        <img class="product-image shop" id="mainImage" :src="'/images/productsfolder/' + stocks[index].propImage" />
+                                                    </a>
+                                                    <div class="product-action-vertical">
+                                                        <a class="btn-product-icon btn-wishlist btn-expandable" @@click="selectProduct(product, index); addOneToWish()" id="WishAdd"><span>В избранное</span></a>
+                                                    </div>
+
+                                                    <div class="product-action product-action-dark">
+                                                        <a class="btn-product btn-cart" @@click="selectProduct(product, index); addOneToCart()" title="В корзину"><span>В корзину</span></a>
+                                                        <a class="btn-product btn-compare" @@click="selectProduct(product, index); addOneToCompare()" title="В сравнение"><span>В сравнение</span></a>
+                                                    </div>
+                                                </figure>
+
+                                               
+                                                <div class="sortingRating" style="display:none">{{product.avRating}}</div>
+                                                <div class="sortingValue" style="display:none">{{stocks[index].value}}</div>
+
+                                                <div class="product-body">
+                                                    <div class="product-cat">
+                                                        <a :href="returnLink(product.name)">{{product.category}}</a>
+                                                    </div>
+
+                                                    <h3 class="product-title"><a :href="returnLink(product.name)">{{product.description}} {{product.name}}</a></h3>
+
+                                                    <div class="product-price">
+                                                        <span class="new-price" v-bind:hidden="stocks[index].isOnSale <= 0">{{newValue(index)}} р.</span>
+                                                        <span class="old-price" v-bind:hidden="stocks[index].isOnSale <= 0"><s>{{stocks[index].value}} р.</s></span>
+                                                        <span name="mainValue" v-bind:hidden="stocks[index].isOnSale > 0">{{stocks[index].value}} р.</span>
+                                                    </div>
+
+                                                    <div class="ratings-container">
+                                                        <div class="ratings">
+                                                            <div class="ratings-val" id="starRat" v-bind:style="{width: (product.avRating*20)+'%'}" style="width: 0%"></div>
+                                                        </div>
+                                                        <span class="ratings-text" style="position:absolute; right: 16px;">{{product.review.length}} <i class="fa fa-comments"></i></span>
+                                                    </div>
+
+                                                    <div class="details-filter-row details-row-size" name="haveColors" style="justify-content: center; margin:auto" v-if="activeIndicate(product)">
+
+                                                        <div class="product-nav product-nav-dots" v-for="(stock, indexStock) in products[index].stock" v-if="stock.isActive===true">
+                                                            <a class="" name="colors" @@click="changeOptions(indexStock, index), selectStock(stock, indexStock)" v-bind:style="{background: stock.color}" style="background: #000000; margin: 3px; border: .01em solid rgb(0,0,0,0.05); outline: .2rem solid #fff;" title=""></a>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div v-else class="product-nav product-nav-dots" name="notColors" style="margin-bottom: 38px;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- End .row -->
+                            </div><!-- End .products -->
+                            @*<nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item disabled">
+                                            <a class="page-link page-link-prev" href="#" aria-label="Previous" tabindex="-1" aria-disabled="true">
+                                                <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Пред
+                                            </a>
+                                        </li>
+                                        <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item-total">из 6</li>
+                                        <li class="page-item">
+                                            <a class="page-link page-link-next" href="#" aria-label="След">
+                                                След <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>*@
+                        </div><!-- End .col-lg-9 -->
+                        <aside class="col-lg-3 order-lg-first">
+                            <div class="sidebar sidebar-shop">
+                                <div class="widget widget-clean">
+                                    <label>Фильтры:</label>
+                                    <a href="#" class="sidebar-filter-clear">Очистить</a>
+                                </div><!-- End .widget widget-clean -->
+                                <div class="widget widget-collapsible">
+                                    <h3 class="widget-title">
+                                        <a data-toggle="collapse" href="#widget-6" role="button" aria-expanded="true" aria-controls="widget-6">
+                                            Поиск
+                                        </a>
+                                    </h3><!-- End .widget-title -->
+
+                                    <div class="collapse show" id="widget-6">
+                                        <div class="widget-body">
+
+                                            <div class="header-search-wrapper">
+                                                <input type="search" class="form-control" id="search" placeholder="Поиск в каталоге">
+                                            </div>
+                                        </div><!-- End .widget-body -->
+                                    </div><!-- End .collapse -->
+                                </div><!-- End .widget -->
+
+                                <div class="widget widget-collapsible">
+                                    <h3 class="widget-title">
+                                        <a data-toggle="collapse" href="#widget-3" role="button" aria-expanded="true" aria-controls="widget-3">
+                                            Цвет
+                                        </a>
+                                    </h3><!-- End .widget-title -->
+
+                                    <div class="collapse show" id="widget-3">
+                                        <div class="widget-body">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" @@click="check()" checked id="col-1">
+                                                <label class="custom-control-label" for="col-1">Предпросмотр</label>
+                                            </div><!-- End .custom-checkbox -->
+                                        </div><!-- End .widget-body -->
+                                    </div><!-- End .collapse -->
+                                </div><!-- End .widget -->
+
+                                <div class="widget widget-collapsible">
+                                    <h3 class="widget-title">
+                                        <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true" aria-controls="widget-1">
+                                            Категория
+                                        </a>
+                                    </h3><!-- End .widget-title -->
+
+                                    <div class="collapse show" id="widget-1">
+                                        <div class="widget-body">
+                                            <div class="filter-items filter-items-count">
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <label class="media-boxes-checkboxes-label custom-control-label">
+                                                            POD
+                                                            <input type="checkbox" class="filters filters2 custom-control-input" data-filter=".POD" data-id="POD">
+                                                            <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                        </label>
+                                                    </div><!-- End .custom-checkbox -->
+
+                                                </div><!-- End .filter-item -->
+
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <label class="media-boxes-checkboxes-label custom-control-label">
+                                                            MOD
+                                                            <input type="checkbox" class="filters filters2 custom-control-input" data-filter=".MOD" data-id="MOD">
+                                                            <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                        </label>
+                                                    </div><!-- End .custom-checkbox -->
+
+                                                </div><!-- End .filter-item -->
+
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <label class="media-boxes-checkboxes-label custom-control-label">
+                                                            Vape
+                                                            <input type="checkbox" class="filters filters2 custom-control-input" data-filter=".Vape" data-id="Vape">
+                                                            <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                        </label>
+                                                    </div><!-- End .custom-checkbox -->
+
+                                                </div><!-- End .filter-item -->
+
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <label class="media-boxes-checkboxes-label custom-control-label">
+                                                            Одноразка
+                                                            <input type="checkbox" class="filters filters2 custom-control-input" data-filter=".Одноразка" data-id="Одноразка">
+                                                            <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                        </label>
+                                                    </div><!-- End .custom-checkbox -->
+
+                                                </div><!-- End .filter-item -->
+
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <label class="media-boxes-checkboxes-label custom-control-label">
+                                                            Испаритель
+                                                            <input type="checkbox" class="filters filters2 custom-control-input" data-filter=".Испаритель" data-id="Испаритель">
+                                                            <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                        </label>
+                                                    </div><!-- End .custom-checkbox -->
+
+                                                </div><!-- End .filter-item -->
+
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <label class="media-boxes-checkboxes-label custom-control-label">
+                                                            Атомайзер
+                                                            <input type="checkbox" class="filters filters2 custom-control-input" data-filter=".Атомайзер" data-id="Атомайзер">
+                                                            <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                        </label>
+                                                    </div><!-- End .custom-checkbox -->
+
+                                                </div><!-- End .filter-item -->
+
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <label class="media-boxes-checkboxes-label custom-control-label">
+                                                            Жидкость
+                                                            <input type="checkbox" class="filters filters2 custom-control-input" data-filter=".Жидкость" data-id="Жидкость">
+                                                            <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                        </label>
+                                                    </div><!-- End .custom-checkbox -->
+
+                                                </div><!-- End .filter-item -->
+
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <label class="media-boxes-checkboxes-label custom-control-label">
+                                                            Аккумулятор
+                                                            <input type="checkbox" class="filters filters2 custom-control-input" data-filter=".Аккумулятор" data-id="Аккумулятор">
+                                                            <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                        </label>
+                                                    </div><!-- End .custom-checkbox -->
+
+                                                </div><!-- End .filter-item -->
+                                            </div><!-- End .filter-items -->
+                                        </div><!-- End .widget-body -->
+                                    </div><!-- End .collapse -->
+                                </div><!-- End .widget -->
+
+                                <div class="widget widget-collapsible">
+                                    <h3 class="widget-title">
+                                        <a data-toggle="collapse" href="#widget-4" role="button" aria-expanded="true" aria-controls="widget-4">
+                                            Производители
+                                        </a>
+                                    </h3><!-- End .widget-title -->
+
+                                    <div class="collapse show" id="widget-4">
+                                        <div class="widget-body">
+                                            <div class="filter-items">
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <label class="media-boxes-checkboxes-label custom-control-label">
+                                                            VooPoo
+                                                            <input type="checkbox" class="filters custom-control-input" data-filter=".VooPoo" data-id="VooPoo">
+                                                            <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                        </label>
+                                                    </div><!-- End .custom-checkbox -->
+                                                </div><!-- End .filter-item -->
+
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <label class="media-boxes-checkboxes-label custom-control-label">
+                                                            Vaporesso
+                                                            <input type="checkbox" class="filters custom-control-input" data-filter=".Vaporesso" data-id="Vaporesso">
+                                                            <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                        </label>
+                                                    </div><!-- End .custom-checkbox -->
+                                                </div><!-- End .filter-item -->
+
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <label class="media-boxes-checkboxes-label custom-control-label">
+                                                            Eleaf
+                                                            <input type="checkbox" class="filters custom-control-input" data-filter=".Eleaf" data-id="Eleaf">
+                                                            <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                        </label>
+                                                    </div><!-- End .custom-checkbox -->
+                                                </div><!-- End .filter-item -->
+
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <label class="media-boxes-checkboxes-label custom-control-label">
+                                                            JustFog
+                                                            <input type="checkbox" class="filters custom-control-input" data-filter=".JustFog" data-id="JustFog">
+                                                            <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                        </label>
+                                                    </div><!-- End .custom-checkbox -->
+                                                </div><!-- End .filter-item -->
+
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <label class="media-boxes-checkboxes-label custom-control-label">
+                                                            Smoant
+                                                            <input type="checkbox" class="filters custom-control-input" data-filter=".Smoant" data-id="Smoant">
+                                                            <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                        </label>
+                                                    </div><!-- End .custom-checkbox -->
+                                                </div><!-- End .filter-item -->
+
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <label class="media-boxes-checkboxes-label custom-control-label">
+                                                            GeekVape
+                                                            <input type="checkbox" class="filters custom-control-input" data-filter=".GeekVape" data-id="GeekVape">
+                                                            <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                        </label>
+                                                    </div><!-- End .custom-checkbox -->
+                                                </div><!-- End .filter-item -->
+
+                                                <div class="filter-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <label class="media-boxes-checkboxes-label custom-control-label">
+                                                            JoyeTech
+                                                            <input type="checkbox" class="filters custom-control-input" data-filter=".JoyeTech" data-id="JoyeTech">
+                                                            <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                        </label>
+                                                    </div><!-- End .custom-checkbox -->
+                                                </div><!-- End .filter-item -->
+
+                                            </div><!-- End .filter-items -->
+                                        </div><!-- End .widget-body -->
+                                    </div><!-- End .collapse -->
+                                </div><!-- End .widget -->
+
+
+
+                                <div id="grid2" style="flex:auto; height:auto !important">
+
+                                    <div class="media-box widget widget-collapsible POD MOD Vape Аккумулятор">
+                                        <h3 class="widget-title">
+                                            <a data-toggle="collapse" href="#widget-12" role="button" aria-expanded="true" aria-controls="widget-12">
+                                                Емкость аккумулятора
+                                            </a>
+                                        </h3><!-- End .widget-title -->
+
+                                        <div class="collapse show" id="widget-12">
+                                            <div class="widget-body">
+                                                <div class="filter-items">
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                350 mAh
+                                                                <input type="checkbox" class="filters custom-control-input" data-filter=".accum350mah" data-id="accum350mah">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                650 mAh
+                                                                <input type="checkbox" class="filters custom-control-input" data-id="accum650mah" data-filter=".accum650mah">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                1000 mAh
+                                                                <input type="checkbox" class="filters custom-control-input" data-id="accum1000mah" data-filter=".accum1000mah">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                1500 mAh
+                                                                <input type="checkbox" class="filters custom-control-input" data-id="accum1500mah" data-filter=".accum1500mah">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                2500 mAh
+                                                                <input type="checkbox" class="filters custom-control-input" data-filter=".accum2500mah" data-id="accum2500mah">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                3500 mAh
+                                                                <input type="checkbox" class="filters custom-control-input" data-filter=".accum3500mah" data-id="accum3500mah">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+                                                </div><!-- End .filter-items -->
+                                            </div><!-- End .widget-body -->
+                                        </div><!-- End .collapse -->
+                                    </div><!-- End .widget -->
+
+                                    <div class="media-box widget widget-collapsible POD MOD Vape">
+                                        <h3 class="widget-title">
+                                            <a data-toggle="collapse" href="#widget-11" role="button" aria-expanded="true" aria-controls="widget-11">
+                                                Дисплей
+                                            </a>
+                                        </h3><!-- End .widget-title -->
+
+                                        <div class="collapse show" id="widget-11">
+                                            <div class="widget-body">
+                                                <div class="filter-items">
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                Да
+                                                                <input type="checkbox" class="filters custom-control-input" data-filter=".screenДа" data-id="screenДа">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                Нет
+                                                                <input type="checkbox" class="filters custom-control-input" data-filter=".screenНет" data-id="screenНет">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+                                                </div><!-- End .filter-items -->
+                                            </div><!-- End .widget-body -->
+                                        </div><!-- End .collapse -->
+                                    </div><!-- End .widget -->
+
+
+                                    <div class="media-box widget widget-collapsible Одноразка">
+                                        <h3 class="widget-title">
+                                            <a data-toggle="collapse" href="#widget-7" role="button" aria-expanded="true" aria-controls="widget-7">
+                                                Количество затяжек
+                                            </a>
+                                        </h3><!-- End .widget-title -->
+
+                                        <div class="collapse show" id="widget-7">
+                                            <div class="widget-body">
+                                                <div class="filter-items">
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                300
+                                                                <input type="checkbox" class="filters custom-control-input" data-filter=".puff300" data-id="puff300">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                800
+                                                                <input type="checkbox" class="filters custom-control-input" data-id="puff800" data-filter=".puff800">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                1500
+                                                                <input type="checkbox" class="filters custom-control-input" data-id="puff1500" data-filter=".puff1500">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                1600
+                                                                <input type="checkbox" class="filters custom-control-input" data-id="1600" data-filter=".1600">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                2200
+                                                                <input type="checkbox" class="filters custom-control-input" data-filter=".puff2200" data-id="puff2200">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                2500
+                                                                <input type="checkbox" class="filters custom-control-input" data-filter=".puff2500" data-id="puff2500">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+                                                </div><!-- End .filter-items -->
+                                            </div><!-- End .widget-body -->
+                                        </div><!-- End .collapse -->
+                                    </div><!-- End .widget -->
+
+
+                                    <div class="media-box widget widget-collapsible Аккумулятор">
+                                        <h3 class="widget-title">
+                                            <a data-toggle="collapse" href="#widget-10" role="button" aria-expanded="true" aria-controls="widget-10">
+                                                Максимальный ток отдачи
+                                            </a>
+                                        </h3><!-- End .widget-title -->
+
+                                        <div class="collapse show" id="widget-10">
+                                            <div class="widget-body">
+                                                <div class="filter-items">
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                5A
+                                                                <input type="checkbox" class="filters custom-control-input" data-filter=".res5A" data-id="res5A">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                20A
+                                                                <input type="checkbox" class="filters custom-control-input" data-id="res20A" data-filter=".res20A">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                30A
+                                                                <input type="checkbox" class="filters custom-control-input" data-id="res30A" data-filter=".res30A">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                40A
+                                                                <input type="checkbox" class="filters custom-control-input" data-id="res40A" data-filter=".res40A">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                </div><!-- End .filter-items -->
+                                            </div><!-- End .widget-body -->
+                                        </div><!-- End .collapse -->
+                                    </div><!-- End .widget -->
+
+                                    <div class="media-box widget widget-collapsible Испаритель Атомайзер">
+                                        <h3 class="widget-title">
+                                            <a data-toggle="collapse" href="#widget-9" role="button" aria-expanded="true" aria-controls="widget-9">
+                                                Максимальная мощность
+                                            </a>
+                                        </h3><!-- End .widget-title -->
+
+                                        <div class="collapse show" id="widget-9">
+                                            <div class="widget-body">
+                                                <div class="filter-items">
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                15W
+                                                                <input type="checkbox" class="filters custom-control-input" data-filter=".mv15W" data-id="mv15W">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                30W
+                                                                <input type="checkbox" class="filters custom-control-input" data-id="mv30W" data-filter=".mv30W">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                60W
+                                                                <input type="checkbox" class="filters custom-control-input" data-id="mv60W" data-filter=".mv60W">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                80W
+                                                                <input type="checkbox" class="filters custom-control-input" data-id="mv80W" data-filter=".mv80W">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                100W
+                                                                <input type="checkbox" class="filters custom-control-input" data-filter=".mv100W" data-id="mv100W">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                250W
+                                                                <input type="checkbox" class="filters custom-control-input" data-filter=".mv250W" data-id="mv250W">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+                                                </div><!-- End .filter-items -->
+                                            </div><!-- End .widget-body -->
+                                        </div><!-- End .collapse -->
+                                    </div><!-- End .widget -->
+
+                                    <div class="media-box widget widget-collapsible Vape">
+                                        <h3 class="widget-title">
+                                            <a data-toggle="collapse" href="#widget-8" role="button" aria-expanded="true" aria-controls="widget-8">
+                                                Встроенный аккумулятор
+                                            </a>
+                                        </h3><!-- End .widget-title -->
+
+                                        <div class="collapse show" id="widget-8">
+                                            <div class="widget-body">
+                                                <div class="filter-items">
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                Да
+                                                                <input type="checkbox" class="filters custom-control-input" data-filter=".biaДа" data-id="biaДа">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <label class="media-boxes-checkboxes-label custom-control-label">
+                                                                Нет
+                                                                <input type="checkbox" class="filters custom-control-input" data-filter=".biaНет" data-id="biaНет">
+                                                                <label class="custom-control-label media-boxes-checkboxes-label" style="pointer-events: none; "></label>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+                                                </div><!-- End .filter-items -->
+                                            </div><!-- End .widget-body -->
+                                        </div><!-- End .collapse -->
+                                    </div><!-- End .widget -->
+
+                                </div>
+
+                            </div><!-- End .sidebar sidebar-shop -->
+                        </aside><!-- End .col-lg-3 -->
+
+                    </div><!-- End .row -->
+
+                </div><!-- End .container -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+
+    </div><!-- End .page-wrapper -->
+    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+    <label id="columns">3</label>
+    
+</body>
+
+@section scripts{
+    <script src="/plugins/components/jQuery/jquery-3.6.0.min.js"></script>
+    <script src="/plugins/components/Isotope/jquery.isotope.min.js"></script>
+    <script src="/plugins/components/imagesLoaded/jquery.imagesLoaded.min.js"></script>
+    <script src="/plugins/components/Transit/jquery.transit.min.js"></script>
+    <script src="/plugins/components/jQuery Easing/jquery.easing.js"></script>
+    <script src="/plugins/components/jQuery Visible/jquery.visible.min.js"></script>
+    <script src="/plugins/components/Modernizr/modernizr.custom.min.js"></script>
+    <script src="/plugins/components/Magnific Popup/jquery.magnific-popup.min.js"></script>
+    <script src="/js/jquery.mediaBoxes.dropdown.js"></script>
+    <script src="/js/jquery.mediaBoxes.js"></script>
+    <script src="/js/wNumb.js"></script>
+    <script src="/js/nouislider.min.js"></script>
+    <script src="~/js/user/shop.js"></script>
+
+    <script>
+        window.onload = function () {
+
+            $('#grid').mediaBoxes({
+                multipleFilterLogic: 'OR',
+                filterContainer: '.filters',
+                sortContainer: '#sort',
+                search: '#search',
+                boxesToLoadStart: 80,
+                columns: document.getElementById('columns').innerHTML,
+                horizontalSpaceBetweenBoxes: 5,
+                verticalSpaceBetweenBoxes: 10,
+                minBoxesPerFilter: 999,
+                searchTarget: '.product-title',
+                 noMoreEntriesWord: 'На этом всё',
+                 //resolutions: [
+                 //    {
+                 //        maxWidth: 1300,
+                 //        columnWidth: 'auto',
+                 //        columns: 3,
+                 //    },
+                 //    {
+                 //        maxWidth: 800,
+                 //        columnWidth: 'auto',
+                 //        columns: 2,
+                 //    },
+                 //    {
+                 //        maxWidth: 550,
+                 //        columnWidth: 'auto',
+                 //        columns: 1,
+                 //    },
+                 //],
+                getSortData: {
+                    title: '.product-title',
+                    categories: '.product-cat',
+                    reviews: '.sortingRating',
+                    value: '.sortingValue',
+                 },
+             });
+            //$('#grid').mediaBoxes({
+            //     multipleFilterLogic: 'AND',
+            //     filterContainer: '.filtersc',
+            //     boxesToLoadStart: 20,
+            //     columns: 1,
+            //     verticalSpaceBetweenBoxes: 10,
+            //     minBoxesPerFilter: 999,
+            //     noMoreEntriesWord: false,
+            // });
+
+             $('#grid2').mediaBoxes({
+                multipleFilterLogic: 'OR',
+                filterContainer: '.filters2',
+                boxesToLoadStart: 20,
+                columns: 1,
+                verticalSpaceBetweenBoxes: 10,
+                minBoxesPerFilter: 999,
+                noMoreEntriesWord: false,
+            });
+        }
+
+        $(".sidebar-filter-clear").click(function () {
+            $('[data-filter="*"]').trigger('click');
+        });
+
+        on4Columns = function () {
+            
+            document.getElementById('columns').innerHTML = 4;
+            document.getElementById('col4').classList.add('active');
+            document.getElementById('col3').classList.remove('active');
+            document.getElementById('col2').classList.remove('active');
+            $('#grid').mediaBoxes('resize');
+        }
+        on3Columns = function () {
+            document.getElementById('columns').innerHTML = 3;
+            $('#grid').mediaBoxes('resize');
+            document.getElementById('col4').classList.remove('active');
+            document.getElementById('col3').classList.add('active');
+            document.getElementById('col2').classList.remove('active');
+        }
+        on2Columns = function () {
+            document.getElementById('columns').innerHTML = 2;
+            $('#grid').mediaBoxes('resize');
+            document.getElementById('col4').classList.remove('active');
+            document.getElementById('col3').classList.remove('active');
+            document.getElementById('col2').classList.add('active');
+        }
+
+    </script>
+
+    <script>
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "3000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+
+        //var slider = document.getElementById('price-slider');
+
+        //noUiSlider.create(slider, {
+        //    start: [0, 80],
+        //    connect: true,
+        //    range: {
+        //        'min': 0,
+        //        'max': 1000
+        //    }
+        //});
+    </script>
+
+
+}

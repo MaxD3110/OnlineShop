@@ -1,0 +1,394 @@
+﻿@page "{name}"
+@model Shop.UI.Pages.ProductModel
+@{
+    ViewData["Title"] = Model.Product.Name;
+}
+
+<body>
+    <div class="page-wrapper" id="app">
+        <main class="main">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+                <div class="container d-flex align-items-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-page="Index">Главная</a></li>
+                        <li class="breadcrumb-item"><a asp-page="Shop">Магазин</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">@Model.Product.Description - @Model.Product.Name</li>
+                    </ol>
+
+
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+            <input id="getavRate" style="display:none" value="@Model.Product.AvRating" />
+            <input id="getsCount" style="display:none" value="@Model.Product.Stock.Count()" />
+            <input id="getRev" style="display:none" value="@Model.Product.Review.Count()" />
+            <input id="getObject" style="display:none" value="" />
+            <input id="getId" style="display:none" value="@Model.Product.Id" />
+
+            <div class="page-content">
+                <div class="container">
+                    <div class="product-details-top mb-2">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="product-gallery product-gallery-vertical">
+                                    <div class="row">
+                                        <figure class="product-main-image">
+                                            <span class="product-label label-sale" id="saleBage">Скидка</span>
+                                            <img id="product-zoom" src="/images/productsfolder/@Model.Product.Image" data-zoom-image="/images/productsfolder/@Model.Product.Image" alt="@Model.Product.Name">
+
+                                            <a href="#" id="btn-product-gallery" class="btn-product-gallery">
+                                                <i class="icon-arrows"></i>
+                                            </a>
+                                        </figure><!-- End .product-main-image -->
+
+                                        @if (Model.Product.Stock.Count() > 1)
+                                        {
+
+                                            <div id="product-zoom-gallery" class="product-image-gallery" style="max-height:190px">
+                                                <form class="prokrutka scroll">
+                                                    @{
+                                                        int photoIndex = 0;
+                                                        @foreach (var s in Model.Product.Stock)
+                                                        {
+                                                            if (s.IsActive == true)
+                                                            {
+                                                                photoIndex++;
+
+                                                                <a class="product-gallery-item" @@click="update(@photoIndex)" data-image="/images/productsfolder/@s.PropImage">
+                                                                    <img src="/images/productsfolder/@s.PropImage" alt="@Model.Product.Description - @Model.Product.Name (@s.Description)" style="border: 1px solid #e0e0e0">
+                                                                </a>
+                                                            }
+                                                        }
+                                                    }
+                                                </form>
+                                            </div><!-- End .product-image-gallery -->
+                                        }
+                                    </div><!-- End .row -->
+                                </div><!-- End .product-gallery -->
+                            </div><!-- End .col-md-6 -->
+
+                            <div class="col-md-6">
+                                <div class="product-details product-details" style="margin-top: 10px">
+                                    <h1 class="product-title">@Model.Product.Description - @Model.Product.Name <span id="stockSpan">Вариант</span></h1><!-- End .product-title -->
+
+                                    <div class="ratings-container">
+                                        <div class="ratings">
+                                            <div class="ratings-val" id="rateval" style="width: 0%"></div><!-- End .ratings-val -->
+                                        </div><!-- End .ratings -->
+                                        <a class="ratings-text" href="#product-review-link" id="review-link">(@Model.Product.Review.Count() отзыв)</a>
+                                    </div><!-- End .rating-container -->
+
+                                    <div class="product-price" id="stockValue" style="margin-top: 40px">
+
+                                    </div>
+                                    <div class="product-price" id="stockValueOnSale" hidden style="margin-top: 40px">
+                                        <span class="new-price"></span>
+                                        <span class="old-price"></span>
+                                    </div>
+
+                                    <div class="details-filter-row details-row-size" id="color" style="margin-top: 40px">
+                                        <label>Цвет:</label>
+                                        <div class="product-nav product-nav-dots">
+                                            @{int index = 0;
+                                                @foreach (var s in Model.Product.Stock)
+                                                {
+                                                    if (s.IsActive == true)
+                                                    {
+                                                        if (s.Color == null)
+                                                        {
+                                                            s.Color = "#000000";
+                                                        }
+                                                        index++;
+                                                        <a class="" name="colors" @@click="update(@index)" style="background: @s.Color; border: .01em solid rgb(0,0,0,0.05); outline: .2rem solid #fff;" title="@s.Description"><span class="sr-only">@s.Description</span></a>
+
+                                                    }
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <div class="details-filter-row details-row-size" id="stock">
+                                        <label for="size">Вариант:</label>
+                                        <div class="select-custom">
+                                            <select name="size" id="selector" class="form-control" @@change="update()" style="max-width:131px">
+                                                @foreach (var s in Model.Product.Stock)
+                                                {
+                                                    if (s.IsActive == true)
+                                                    {
+                                                        <option data-id="@s.Id"
+                                                                data-value="@s.Value"
+                                                                data-name="@s.Description"
+                                                                data-qty="@s.Qty"
+                                                                data-sale="@s.IsOnSale"
+                                                                data-stockImage="@s.PropImage">
+                                                            @s.Description
+                                                        </option>
+
+                                                    }
+                                                }
+                                            </select>
+                                        </div><!-- End .select-custom -->
+
+                                    </div><!-- End .details-filter-row -->
+                                    <form method="post">
+                                        <div class="details-filter-row details-row-size">
+                                            <label for="qty">Кол-во:</label>
+                                            <div class="product-details-quantity">
+                                                <input type="number" asp-for="CartViewModel.Qty" id="qty" class="form-control" v-on:change="update" value="1" min="1" max="10" step="1" data-decimals="0" required="" style="display: none;">
+                                            </div><!-- End .product-details-quantity -->
+                                            <span class="in-stock" id="qtycheck" style="margin-left: 15px">В наличии</span>
+                                        </div>
+
+                                        <div class="product-details-action" style="margin-top: 40px">
+
+                                            @Html.HiddenFor(Model => Model.WishViewModel.StockId)
+                                            @Html.HiddenFor(Model => Model.CartViewModel.StockId)
+                                            @Html.HiddenFor(Model => Model.CompareViewModel.Key)
+                                            <button class="btn btn-block btn-outline-primary-2" type="submit" style="max-width: 150px">В КОРЗИНУ<i class="icon-cart-plus"></i></button>
+                                            <a class="btn-product btn-wishlist" @@click="addOneToWish()" title="Избранные"><span>Добавить в избранные</span></a>
+                                            <a class="btn-product btn-compare" @@click="addOneToCompare()" title="Сравнение"><span>Добавить к сравнению</span></a>
+                                        </div>
+                                    </form>
+
+                                    <div class="product-details-footer">
+                                        <div class="product-cat">
+                                            <span>Категория:</span>
+                                            <a href="#" id="productCategory">@Model.Product.Category</a>
+                                        </div><!-- End .product-cat -->
+
+                                        <div class="social-icons social-icons-sm">
+                                            <span class="social-label">Поделиться:</span>
+                                            <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                                            <a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                                            <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                                            <a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                                        </div>
+                                    </div><!-- End .product-details-footer -->
+                                </div><!-- End .product-details -->
+                            </div><!-- End .col-md-6 -->
+                        </div><!-- End .row -->
+                    </div><!-- End .product-details-top -->
+
+                    <div class="product-details-tab">
+                        <ul class="nav nav-pills justify-content-center" role="tablist">
+                            @if (Model.Product.FullDescription == "{\"ops\":[{\"insert\":\"\\n\"}]}" || Model.Product.FullDescription == "null" || Model.Product.FullDescription == "{\"ops\":[{\"insert\":\"\\n\\n\"}]}")
+                            {
+                            }
+                            else
+                            {
+
+                                <li class="nav-item">
+                                    <a class="nav-link" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab" aria-controls="product-desc-tab" aria-selected="false">Описание</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <a class="nav-link active" id="product-info-link" data-toggle="tab" href="#product-info-tab" role="tab" aria-controls="product-info-tab" aria-selected="true">Характеристики</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab" aria-controls="product-review-tab" aria-selected="false">Отзывы (@Model.Product.Review.Count())</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
+                                <div class="product-desc-content">
+                                    <div id="quillEditor" style="border:none">
+                                    </div>
+                                </div><!-- End .product-desc-content -->
+                            </div><!-- .End .tab-pane -->
+                            <div class="tab-pane fade show active" id="product-info-tab" role="tabpanel" aria-labelledby="product-info-link">
+                                <div class="product-desc-content">
+                                    <div>
+
+                                        <table class="table table-cart table-mobile" id="specTable">
+                                            @if (Model.Product.Category == "POD" || Model.Product.Category == "MOD" || Model.Product.Category == "Vape" || Model.Product.Category == "Одноразка")
+                                            {
+                                                <tr>
+                                                    <td><b>Формфактор</b></td>
+                                                    <td>@Model.Product.Category</td>
+                                                </tr>
+                                            }
+                                        </table>
+
+                                    </div>
+                                </div><!-- End .product-desc-content -->
+                            </div><!-- .End .tab-pane -->
+                            <div class="tab-pane fade" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
+                                @if (Model.Product.Review.Count() > 0)
+                                {
+
+                                    <div class="reviews" id="displayReview">
+                                        <button type="submit" class="btn btn-outline-primary-2 btn-minwidth-sm" onclick="newReview()" style="margin-bottom: 2em;">
+                                            <span>Оставить отзыв</span>
+                                        </button>
+                                        <form class="scroll" style="overflow-y: scroll; max-height: 500px">
+                                            @foreach (var r in Model.Product.Review)
+                                            {
+                                                string revDisplay = "";
+                                                revDisplay = (r.Rating * 20) + "%";
+                                                <div class="review">
+                                                    <div class="row no-gutters">
+                                                        <div class="col-auto">
+                                                            <h4><a>@r.CommentatorName</a></h4>
+                                                            <div class="ratings-container">
+                                                                <div class="ratings">
+                                                                    <div class="ratings-val" style="width: @revDisplay;"></div>
+                                                                </div>
+                                                            </div>
+                                                            <span class="review-date">@r.ThisDateTime</span>
+                                                        </div>
+                                                        <div class="col">
+                                                            <h4>@r.Title</h4>
+
+                                                            <div class="review-content">
+                                                                <p>@r.Comments</p>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </form>
+                                    </div><!-- End .reviews -->
+                                }
+                                else
+                                {
+                                    <div class="reviews row" id="displayReview" style="justify-content: center">
+                                        <div class="col-lg-6" style="text-align:center">
+                                            <h3>Ещё никто не оставил отзыв...</h3>
+                                            <p>
+                                                Станьте первым!
+                                            </p>
+                                            <br />
+                                            <button type="submit" class="btn btn-outline-primary-2 btn-minwidth-sm" onclick="newReview()" style="margin-bottom: 2em;">
+                                                <span>Оставить отзыв</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                }
+                                <div class="reviews row" id="newReviewForm" style="display: none; justify-content: center">
+                                    <div class="col-lg-6">
+                                        <h2 class="title mb-1" style="align-self:center">Оставьте отзыв!</h2><!-- End .title mb-2 -->
+                                        <p class="mb-2">Ваш отзыв влияет на среднюю оценку товара и будет виден всем пользователям.</p>
+
+                                        <form action="#" class="contact-form mb-3">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label for="cname" class="sr-only">Имя</label>
+                                                    <input type="text" class="form-control" id="cname" v-model="newReview.commentatorName" placeholder="Имя *" required="">
+                                                </div><!-- End .col-sm-6 -->
+
+                                                <div class="col-sm-6">
+                                                    <label for="cemail" class="sr-only">Email</label>
+                                                    <input type="email" class="form-control" id="cemail" v-model="newReview.email" placeholder="Email *" required="">
+                                                </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label for="cphone" class="sr-only">Заголовок</label>
+                                                    <input type="tel" class="form-control" v-model="newReview.title" id="cphone" placeholder="Заголовок">
+                                                </div><!-- End .col-sm-6 -->
+                                                <div class="col-sm-6">
+                                                    <fieldset class="starability-basic">
+                                                        <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+
+                                                        <input type="radio" id="rate1" name="rating" value="1" @@click="newReview.rating = 1" />
+                                                        <label for="rate1">1.</label>
+
+                                                        <input type="radio" id="rate2" name="rating" value="2" @@click="newReview.rating = 2" />
+                                                        <label for="rate2">2</label>
+
+                                                        <input type="radio" id="rate3" name="rating" value="3" @@click="newReview.rating = 3" />
+                                                        <label for="rate3">3</label>
+
+                                                        <input type="radio" id="rate4" name="rating" value="4" @@click="newReview.rating = 4" />
+                                                        <label for="rate4">4</label>
+
+                                                        <input type="radio" id="rate5" name="rating" value="5" @@click="newReview.rating = 5" />
+                                                        <label for="rate5">5</label>
+
+                                                        <span class="starability-focus-ring"></span>
+                                                    </fieldset>
+                                                </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+
+
+
+                                            <label for="cmessage" class="sr-only">Отзыв</label>
+                                            <textarea class="form-control" cols="30" rows="4" id="cmessage" v-model="newReview.comments" required="" placeholder="Отзыв *"></textarea>
+
+                                            <button type="submit" class="btn btn-outline-primary-2 btn-minwidth-sm" @@click="addReview()">
+                                                <span>Опубликовать</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+                                            <button class="btn btn-outline-primary-2 btn-minwidth-sm" style="float:right" onclick="cancel()" CausesValidation="false">
+                                                <span>Отмена</span>
+                                                <i class="icon-close"></i>
+                                            </button>
+                                        </form><!-- End .contact-form -->
+                                    </div>
+
+                                </div><!-- End .reviews -->
+                            </div><!-- .End .tab-pane -->
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .product-details-tab -->
+
+
+
+                </div><!-- End .container -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+    </div><!-- End .page-wrapper -->
+    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+
+    @section scripts{
+
+        <script src="/js/bootstrap-input-spinner.js"></script>
+        <script src="/js/jquery.elevateZoom.min.js"></script>
+        <script src="/js/bootstrap-input-spinner.js"></script>
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+        <script src="~/js/user/specProduct.js"></script>
+    }
+    <script>
+
+    newReview = function () {
+        var all = document.getElementById('displayReview');
+        var add = document.getElementById('newReviewForm');
+        all.style.display = 'none';
+        add.style.display = '';
+    }
+    cancel = function () {
+        var all = document.getElementById('displayReview');
+        var add = document.getElementById('newReviewForm');
+        add.style.display = 'none';
+        all.style.display = '';
+    }
+        window.onload = function () {
+
+        var product
+        product = JSON.stringify(@Json.Serialize(Model.Product));
+        console.log(product);
+        document.getElementById('getObject').value = product;
+
+        }
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "3000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+</body>

@@ -1,0 +1,258 @@
+﻿@page
+@model Shop.UI.Pages.Admin.PostsModel
+@{
+    ViewData["Title"] = "Управление блогом";
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Управление блогом</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/Admin/AdminMain">Главная</a></li>
+                    <li class="breadcrumb-item active">Управление блогом</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div v-if="!editing">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Все посты в блоге. Нажмите на строку, чтобы отредактировать соответствующий пост.
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <button class="btn btn-danger" @@click="newPost">Добавить пост</button>
+                            <table id="example5" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="align">ID</th>
+                                        <th class="align">Статус</th>
+                                        <th class="align">Изображение</th>
+                                        <th class="align">Название</th>
+                                        <th class="align">Дата создания</th>
+                                        <th class="align"><i class="fa fa-times"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(post, index) in posts">
+                                        <td @@click="editPost(post.id, index); selectPost(post)" class="align">{{post.id}}</td>
+                                        <td @@click="editPost(post.id, index); selectPost(post)" class="price-col align">
+                                            <label v-if="post.isActive===true" style="color: limegreen">Активен</label>
+                                            <label v-else style="color:red">Неактивен</label>
+                                        </td>
+                                        <td @@click="editPost(post.id, index); selectPost(post)" class="product-col align">
+
+                                                    <a asp-page="/Product">
+                                                        <img :src="'/images/postsfolder/' + post.image" style="max-width: 200px; max-height: 200px; border: 1px solid; border-color: #ebebeb"  />
+                                                    </a>
+         
+                                        </td>
+                                        <td @@click="editPost(post.id, index); selectPost(post)" class="price-col align">{{post.title}}</td>
+                                      
+                                        <td @@click="editPost(post.id, index); selectPost(post)" class="price-col align">
+                                            {{post.created}}
+                                        </td>
+                                        <td class="align"><i class="fa fa-times" @@click="deletePost(post.id, index)"></i></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th class="align">ID</th>
+                                        <th class="align">Статус</th>
+                                        <th class="align">Изображение</th>
+                                        <th class="align">Название</th>
+                                        <th class="align">Дата создания</th>
+                                        <th class="align"><i class="fa fa-times"></i></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <div v-else>
+            
+                    <div class="card card-danger" style="max-height: 580px">
+                        <div class="card-header">
+                            <h3 class="card-title">Информация о посте</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form enctype="multipart/form-data">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Заголовок</label>
+                                            <input type="text" class="form-control" v-model="postModel.title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Описание</label>
+                                            <textarea type="text" rows="3" maxlength="680" class="form-control" style="max-height: 210px" v-model.number="postModel.description"></textarea>
+                                        </div>
+                                    </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Категория</label>
+                                                <select class="custom-select" id="select" v-model="postModel.category">
+                                                    <option value="news">Новости</option>
+                                                    <option value="fresh">Новинки</option>
+                                                    <option value="sales">Акции</option>
+                                                    <option value="compil">Подборки</option>
+                                                    <option value="reviews">Обзоры</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">Изображение</label>
+                                                <div class="input-group">
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" name="image" id="image" @@change="onFileChange">>
+                                                        <label class="custom-file-label" for="exampleInputFile">Выберите файл</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                          
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1" v-model="postModel.isActive">
+                                                <label for="customCheckbox1" class="custom-control-label">Активен</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                                <!-- /.card-body -->
+</form>
+                   
+                
+            </div>
+        </div>
+            <div class="row hidden" id="descr">
+                <div class="col-md-12">
+                    <div class="card card-outline card-gray-dark">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                Текст
+                            </h3>
+                        </div>
+
+                        <div class="card-body">
+                            <div id="editor" v-model="postModel.body" style="min-height: 500px; overflow: hidden;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="customSticky" v-if="editing">
+                <div class="rectangle">
+                    <a class="btn btn-success" @@click="createPost()" v-if="!postModel.id" style="margin-left: 15px; margin-top: 8px">Создать</a>
+                    <a class="btn btn-success" @@click="updatePost" v-else style="margin-left: 15px; margin-top: 8px">Применить</a>
+                    <a class="btn btn-danger float-right" href="/Admin/Posts" @@click="cancel()" style="margin-right: 15px; margin-top: 8px">Вернуться</a>
+                </div>
+            </div>
+    </div>
+</section>
+
+
+
+@section scripts
+{
+            <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+            <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+            <script src="/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+            <script src="/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+            <script src="/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+            <script src="/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+            <script src="/plugins/jszip/jszip.min.js"></script>
+            <script src="/plugins/pdfmake/pdfmake.min.js"></script>
+            <script src="/plugins/pdfmake/vfs_fonts.js"></script>
+            <script src="/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+            <script src="/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+            <script src="/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+            <script src="/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+            <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+            <script src="~/js/admin/posts.js"></script>
+            <script>
+                window.onload = function () {
+                    $(function () {
+                        $("#example6").on("draw.dt", function () {
+                            $(this).find(".dataTables_empty").parents('tbody').empty();
+                        }).DataTable({
+                            filter: true,
+                            paging: false,
+                            lengthChange: false,
+                            searching: false,
+                            ordering: true,
+                            info: false,
+                            autoWidth: false,
+                            responsive: false,
+                            scrollY: '50vh',
+                            scrollCollapse: true,
+                            dom: '<"top"flp>rt<"bottom"i><"clear">',
+                            language: {
+                                url: '//cdn.datatables.net/plug-ins/1.11.4/i18n/ru.json',
+
+                            }
+                        });
+                        $("#example5").on("draw.dt", function () {
+                            $(this).find(".dataTables_empty").parents('tbody').empty();
+                        }).DataTable({
+                            filter: true,
+                            paging: false,
+                            lengthChange: false,
+                            searching: true,
+                            ordering: true,
+                            info: false,
+                            autoWidth: false,
+                            responsive: true,
+                            statesave: true,
+                            dom: '<"top"flp>rt<"bottom"i><"clear">',
+                            language: {
+                                url: '//cdn.datatables.net/plug-ins/1.11.4/i18n/ru.json',
+
+                            }
+                        });
+                    });
+                }
+            </script>
+            <script>
+
+                $(function () {
+                    bsCustomFileInput.init();
+                });
+            </script>
+
+            <script>
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            </script>
+
+        }

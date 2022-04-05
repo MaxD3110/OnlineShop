@@ -1,0 +1,113 @@
+﻿@model IEnumerable<Shop.Application.Wishlist.GetWish.Response>
+
+    <style>
+        .space {
+            margin-top: 200px;
+            margin-bottom: 200px;
+        }
+    </style>
+
+<main class="main" id="wish-main">
+    <div class="page-content">
+        <div class="cart">
+            <div class="container">
+                <div class="row">
+                    @if (Model.Count() > 0)
+                    {
+                        <div class="page-content">
+                            <div class="cart">
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-12 justify-content-center">
+                                            <table class="table table-cart table-mobile">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Товар</th>
+                                                        <th>Цена</th>
+                                                        <th>Статус</th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    @foreach (var product in Model)
+                                                    {
+                                                    <tr>
+                                                        <td class="product-col">
+                                                            <div class="product">
+                                                                <figure class="product-media">
+                                                                    <a href="Product/@product.Name.Replace(" ", "-")">
+                                                                        @if (!String.IsNullOrEmpty(product.PropImage))
+                                                                        {
+                                                                            var image_path = $"/images/productsfolder/{product.PropImage}";
+                                                                            <img src="@image_path" class="product-image" />
+                                                                        }
+                                                                    </a>
+                                                                </figure>
+
+                                                                <h3 class="product-title">
+                                                                    <a href="Product/@product.Name.Replace(" ", "-")">@product.ProductDescription - @product.Name  (@product.Description)</a>
+                                                                </h3><!-- End .product-title -->
+                                                            </div><!-- End .product -->
+                                                        </td>
+                                                        <td class="price-col">@product.RealValue.ToString("0.00") р.</td>
+                                                        <td class="quantity-col">
+                                                            @if (product.Sqty <= 0)
+                                                            {
+                                                                <span class="out-of-stock">Нет в наличии</span>
+                                                            }
+                                                            else if (product.Sqty < 10)
+                                                            {
+                                                                <span class="in-stock">Мало</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="in-stock">В наличии</span>
+                                                            }
+                                                        </td>
+                                                        @if (product.Sqty <= 0)
+                                                        {
+                                                            <td class="action-col"> <button class="btn btn-block btn-outline-primary-2 disabled">Нет в наличии</button> </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td class="action-col"> <button class="btn btn-block btn-outline-primary-2" onclick="addOneToCart(@product.StockId)" data-stock-id="@product.StockId">В корзину <i class="icon-cart-plus"></i></button> </td>
+                                                        }
+                                                        <td class="remove-col"><a class="icon-close" onclick="removeAllFromWish(event)" data-stock-id="@product.StockId"></a></td>
+                                                    </tr>
+                                                    }
+                                                </tbody>
+                                            </table><!-- End .table table-wishlist -->
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-7">
+                                            <div class="cart-discount">
+                                                <a href="Shop" class="btn btn-outline-dark-2"><span>Вернуться в магазин</span><i class="icon-refresh"></i></a>
+                                            </div><!-- End .cart-discount -->
+                                        </div><!-- End .cart-bottom -->
+                                        <div class="col-lg-4">
+                                        </div><!-- End .cart-bottom -->
+
+
+
+                                    </div><!-- End .col-lg-9 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .container -->
+                        </div><!-- End .cart -->
+                    }
+                    else
+                    {
+                        <div class="text-center space">
+                            <div class="container">
+                                <h1 class="page-title">Здесь ничего нет!</h1>
+                                <a href="Shop" class="btn btn-outline-dark-2"><span>Вернуться в магазин</span><i class="icon-refresh"></i></a>
+                            </div><!-- End .container -->
+                        </div><!-- End .page-header -->
+                    }
+                </div>
+            </div><!-- End .container -->
+        </div><!-- End .cart -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->

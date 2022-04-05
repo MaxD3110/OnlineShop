@@ -1,0 +1,106 @@
+﻿@page
+@model Shop.UI.Pages.CartModel
+@{
+    ViewData["Title"] = "Корзина";
+}
+
+<div class="page-header text-center" style="background-image: url('/images/page-header-bg.jpg')">
+    <div class="container">
+        <h1 class="page-title">Корзина</h1>
+    </div><!-- End .container -->
+</div><!-- End .page-header -->
+<nav aria-label="breadcrumb" class="breadcrumb-nav">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-page="Index">Главная</a></li>
+            <li class="breadcrumb-item"><a asp-page="Shop">Магазин</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Корзина</li>
+        </ol>
+    </div><!-- End .container -->
+</nav><!-- End .breadcrumb-nav -->
+<partial name="_CartPartial" model="@Model.Cart" />
+
+
+@section scripts {
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+
+
+        var addOneToCart = function (e) {
+            var stockId = e.target.dataset.stockId;
+            axios.post("/Cart/AddOne/" + stockId)
+                .then(res => {
+                    updateCart();
+                }).catch(err => {
+                    console.log(err.error)
+                })
+        }
+
+        var removeOneFromCart = function (e) {
+            var stockId = e.target.dataset.stockId;
+            removeFromCart(stockId, 1);
+        }
+
+        var removeAllFromCart = function (e) {
+            var stockId = e.target.dataset.stockId;
+            var id = "stock-qty-" + stockId;
+            var el = document.getElementById(id);
+            var qty = parseInt(el.textContent);
+            removeFromCart(stockId, qty);
+        }
+
+        var removeFromCart = function (stockId, qty) {
+            axios.post("/Cart/Remove/" + stockId + '/' + qty)
+                .then(res => {
+                    updateCart();
+                    
+                }).catch(err => {
+                    alert(err.error);
+                })
+        }
+
+        var updateCart = function () {
+            axios.get('/Cart/GetCartComponent')
+                .then(res => {
+                    var html = res.data;
+                    var el = document.getElementById('cart-nav');
+
+                    el.outerHTML = html;
+                });
+            axios.get('/Cart/GetCartMedium')
+                .then(res => {
+                    var html = res.data;
+                    var el = document.getElementById('cart-med');
+
+                    el.outerHTML = html;
+                });
+            axios.get('/Cart/GetCartMain')
+                .then(res => {
+                    var html = res.data;
+                    var el = document.getElementById('cart-main');
+
+                    el.outerHTML = html;
+                })
+
+        }
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "3000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+
+}

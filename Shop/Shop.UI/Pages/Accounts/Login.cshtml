@@ -1,0 +1,39 @@
+﻿@page
+@model Shop.UI.Pages.Accounts.LoginModel
+@{
+}
+
+<style>
+    .formSign {
+        border: 1px solid #ebebeb;
+        max-width: 550px;
+        max-height: 400px;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        padding: 60px;
+        margin-top: 300px;
+        transform: translate(-50%, -50%);
+    }
+</style>
+
+<form method="post" style="justify-content:center">
+    <div class="formSign">
+        <div class="form-group">
+            <label for="register-email">Логин *</label>
+            <input type="text" asp-for="Input.Username" class="form-control" id="register-email" required>
+        </div><!-- End .form-group -->
+
+        <div class="form-group">
+            <label for="register-password">Пароль *</label>
+            <input type="text" asp-for="Input.Password" class="form-control" id="register-password" required>
+        </div><!-- End .form-group -->
+
+        <div class="form-footer">
+            <button type="submit" class="btn btn-outline-primary-2" name="name">
+                <span>Войти</span>
+                <i class="icon-long-arrow-right"></i>
+            </button>
+        </div><!-- End .form-footer -->
+    </div>
+</form>

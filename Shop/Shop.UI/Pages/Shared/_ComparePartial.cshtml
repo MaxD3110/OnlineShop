@@ -1,0 +1,114 @@
+﻿@model IEnumerable<Shop.Application.Compare.GetCompare.Response>
+
+<style>
+    .space {
+        margin-top: 200px;
+        margin-bottom: 200px;
+    }
+    .align{
+        text-align:center;
+        justify-content:center;
+    }
+</style>
+
+<main class="main" id="compare-main">
+    <div class="page-content">
+        <div class="cart">
+            <input id="getObject" style="display:none" value="" />
+            <div class="container">
+                <div class="row">
+                    @if (Model.Count() > 1)
+                    {
+                        <div class="page-content">
+                            <div class="cart">
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <table id="specTable" class="table align">
+                                            <tr>
+                                                <th style="border-left: none">
+                                                    <button class="btn btn-block btn-outline-primary-2" onclick="javascript:removeAllFromCompare()" style="max-width: 100px; float: left"> Очистить сравнение </button>
+                                                </th>
+                                                @foreach (var product in Model)
+                                                {
+                                                    <th class="align" >
+                                                        <a class="icon-close" onclick="removeFromCompare(@product.StockId)" data-stockid="@product.StockId" style="margin-left: 180px"></a>
+                                                        <figure class="product-media align" style="max-width: 200px; margin: auto">
+                                                            <a href="Product/@product.Name.Replace(" ", "-")">
+                                                                @if (!String.IsNullOrEmpty(product.PropImage))
+                                                                {
+                                                                    var image_path = $"/images/productsfolder/{product.PropImage}";
+                                                                    <img src="@image_path" class="product-image" />
+                                                                }
+
+                                                            </a>
+                                                        </figure>
+                                                        <h3 class="product-title">
+                                                            <a href="Product/@product.Name.Replace(" ", "-")">@product.ProductDescription - @product.Name</a>
+                                                        </h3>
+
+                                                        <span>@product.RealValue.ToString("0.00") р.</span>
+                                                        <div>
+                                                            @if (product.Sqty <= 0)
+                                                            {
+                                                                <span class="out-of-stock">Нет в наличии</span>
+                                                            }
+                                                            else if (product.Sqty < 10)
+                                                            {
+                                                                <span class="in-stock">Мало</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="in-stock">В наличии</span>
+                                                            }
+                                                        </div>
+                                                        @*<div>
+                                                        @if (product.Sqty <= 0)
+                                                        {
+                                                            <button class="btn btn-block btn-outline-primary-2 disabled">Нет в наличии</button>
+                                                        }
+                                                        else
+                                                        {
+                                                            <button class="btn btn-block btn-outline-primary-2" onclick="addOneToCart(@product.StockId)" data-stock-id="@product.StockId">В корзину <i class="icon-cart-plus"></i></button>
+                                                        }
+                                                    </div>*@
+                                                    </th>
+                                                }
+                                            </tr>
+                                        </table>
+
+
+
+                                    </div><!-- End .col-lg-9 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .container -->
+                        </div><!-- End .cart -->
+                    }
+                    else if (Model.Count() == 1)
+                    {
+                        <div class="text-center space">
+                            <div class="container">
+                                <h1 class="page-title">В сравнении только 1 товар</h1>
+                                <span>Выберите ещё!</span>
+                                <br />
+                                <a href="Shop" class="btn btn-outline-dark-2"><span>Вернуться в магазин</span><i class="icon-refresh"></i></a>
+                            </div><!-- End .container -->
+                        </div><!-- End .page-header -->
+                    }
+                    else if (Model.Count() <= 0)
+                    {
+                        <div class="text-center space">
+                            <div class="container">
+                                <h1 class="page-title">Вы ничего не сравниваете!</h1>
+                                <a href="Shop" class="btn btn-outline-dark-2"><span>Вернуться в магазин</span><i class="icon-refresh"></i></a>
+                            </div><!-- End .container -->
+                        </div><!-- End .page-header -->
+                    }
+                    else
+                    {
+                        <span>error</span>
+                    }
+                </div>
+            </div><!-- End .container -->
+        </div><!-- End .cart -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->

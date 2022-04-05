@@ -1,0 +1,10 @@
+A:\OnlineShop\Shop\Shop.Domain\bin\Debug\netcoreapp3.1\Shop.Domain.deps.json
+A:\OnlineShop\Shop\Shop.Domain\bin\Debug\netcoreapp3.1\Shop.Domain.dll
+A:\OnlineShop\Shop\Shop.Domain\bin\Debug\netcoreapp3.1\Shop.Domain.pdb
+A:\OnlineShop\Shop\Shop.Domain\obj\Debug\netcoreapp3.1\Shop.Domain.csproj.AssemblyReference.cache
+A:\OnlineShop\Shop\Shop.Domain\obj\Debug\netcoreapp3.1\Shop.Domain.GeneratedMSBuildEditorConfig.editorconfig
+A:\OnlineShop\Shop\Shop.Domain\obj\Debug\netcoreapp3.1\Shop.Domain.AssemblyInfoInputs.cache
+A:\OnlineShop\Shop\Shop.Domain\obj\Debug\netcoreapp3.1\Shop.Domain.AssemblyInfo.cs
+A:\OnlineShop\Shop\Shop.Domain\obj\Debug\netcoreapp3.1\Shop.Domain.csproj.CoreCompileInputs.cache
+A:\OnlineShop\Shop\Shop.Domain\obj\Debug\netcoreapp3.1\Shop.Domain.dll
+A:\OnlineShop\Shop\Shop.Domain\obj\Debug\netcoreapp3.1\Shop.Domain.pdb

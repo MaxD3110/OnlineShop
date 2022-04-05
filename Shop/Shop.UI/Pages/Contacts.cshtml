@@ -1,0 +1,75 @@
+﻿@page
+@model Shop.UI.Pages.ContactsModel
+@{
+    ViewData["Title"] = "Контакты";
+}
+
+<div class="page-wrapper">
+
+    <main class="main">
+        <div class="page-header text-center" style="background-image: url('/images/page-header-bg.jpg')">
+            <div class="container">
+                <h1 class="page-title">Контакты<span>Связаться с нами</span></h1>
+            </div><!-- End .container -->
+        </div><!-- End .page-header -->
+        <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-page="Index">Главная</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Контакты</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+
+        <div class="page-content">
+            <div id="map" class="mb-5"></div><!-- End #map -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contact-box text-center">
+                            <h3>Магазин</h3>
+
+                            <address>ТЦ Силуэт, ул. Красная 5а <br> г. Минск</address>
+                        </div><!-- End .contact-box -->
+                    </div><!-- End .col-md-4 -->
+
+                    <div class="col-md-4">
+                        <div class="contact-box text-center">
+                            <h3>Свяжитесь с нами</h3>
+
+                            <div><a href="mailto:#">ParOpt@gmail.com</a></div>
+                            <div><a href="tel:#">+375(33)342-82-88</a>, <a href="tel:#">+375(29)644-99-89</a></div>
+                        </div><!-- End .contact-box -->
+                    </div><!-- End .col-md-4 -->
+
+                    <div class="col-md-4">
+                        <div class="contact-box text-center">
+                            <h3>Социальные Сети</h3>
+
+                            <div class="social-icons social-icons-color justify-content-center">
+                                <a href="#" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                                <a href="#" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                                <a href="#" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                                <a href="#" class="social-icon social-youtube" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+                                <a href="#" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                            </div><!-- End .soial-icons -->
+                        </div><!-- End .contact-box -->
+                    </div><!-- End .col-md-4 -->
+                </div><!-- End .row -->
+
+               
+            </div><!-- End .container -->
+        </div><!-- End .page-content -->
+    </main><!-- End .main -->
+</div><!-- End .page-wrapper -->
+
+<!-- Google Map -->
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDc3LRykbLB-y8MuomRUIY0qH5S6xgBLX4&callback=initMap&v=weekly"></script>
+<script>
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: 53.91670832181059, lng: 27.579408012387013 },
+            zoom: 8,
+        });
+    }
+</script>

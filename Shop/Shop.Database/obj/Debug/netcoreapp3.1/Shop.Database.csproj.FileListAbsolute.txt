@@ -1,0 +1,15 @@
+A:\OnlineShop\Shop\Shop.Database\bin\Debug\netcoreapp3.1\Shop.Database.deps.json
+A:\OnlineShop\Shop\Shop.Database\bin\Debug\netcoreapp3.1\Shop.Database.dll
+A:\OnlineShop\Shop\Shop.Database\bin\Debug\netcoreapp3.1\Shop.Database.pdb
+A:\OnlineShop\Shop\Shop.Database\bin\Debug\netcoreapp3.1\Shop.Domain.dll
+A:\OnlineShop\Shop\Shop.Database\bin\Debug\netcoreapp3.1\Shop.Domain.pdb
+A:\OnlineShop\Shop\Shop.Database\obj\Debug\netcoreapp3.1\Shop.Database.csproj.AssemblyReference.cache
+A:\OnlineShop\Shop\Shop.Database\obj\Debug\netcoreapp3.1\Shop.Database.GeneratedMSBuildEditorConfig.editorconfig
+A:\OnlineShop\Shop\Shop.Database\obj\Debug\netcoreapp3.1\Shop.Database.AssemblyInfoInputs.cache
+A:\OnlineShop\Shop\Shop.Database\obj\Debug\netcoreapp3.1\Shop.Database.AssemblyInfo.cs
+A:\OnlineShop\Shop\Shop.Database\obj\Debug\netcoreapp3.1\Shop.Database.csproj.CoreCompileInputs.cache
+A:\OnlineShop\Shop\Shop.Database\obj\Debug\netcoreapp3.1\Shop.Database.dll
+A:\OnlineShop\Shop\Shop.Database\obj\Debug\netcoreapp3.1\Shop.Database.pdb
+A:\OnlineShop\Shop\Shop.Database\bin\Debug\netcoreapp3.1\Shop.Database.runtimeconfig.json
+A:\OnlineShop\Shop\Shop.Database\bin\Debug\netcoreapp3.1\Shop.Database.runtimeconfig.dev.json
+A:\OnlineShop\Shop\Shop.Database\obj\Debug\netcoreapp3.1\Shop.Database.genruntimeconfig.cache

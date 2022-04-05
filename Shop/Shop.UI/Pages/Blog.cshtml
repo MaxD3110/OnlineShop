@@ -1,0 +1,84 @@
+﻿@page
+@model Shop.UI.Pages.BlogModel
+@{
+    ViewData["Title"] = "Интересное";
+}
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Интересное<span>Новости, акции и многое другое!</span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-page="Index">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Интересное</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content" id="app">
+        <div class="container">
+            <nav class="blog-nav">
+                <ul class="menu-cat entry-filter justify-content-center">
+                    <li class="active"><a href="#" data-filter="*">Все посты<span id="everything">0</span></a></li>
+                    <li><a href="#" data-filter=".sales">Акции<span id="spanSales">0</span></a></li>
+                    <li><a href="#" data-filter=".news">Новости<span id="spanNews">0</span></a></li>
+                    <li><a href="#" data-filter=".fresh">Новинки<span id="spanFresh">0</span></a></li>
+                    <li><a href="#" data-filter=".reviews">Обзоры<span id="spanReviews">0</span></a></li>
+                    <li><a href="#" data-filter=".compil">Подборки<span id="spanCompil">0</span></a></li>
+                </ul><!-- End .blog-menu -->
+            </nav><!-- End .blog-nav -->
+
+            <div class="entry-container max-col-3" data-layout="fitRows" >
+                <div class="entry-item col-sm-6 col-lg-4" v-for="(post, index) in posts" v-bind:hidden="!post.isActive" v-bind:class="post.category" >
+                    <article class="entry entry-grid text-center">
+                        
+                        <figure class="entry-media">
+                            <a :href="'Post/' + post.id">
+                                <img :src="'/images/postsfolder/' + post.image" alt="image desc" style="height: 250px; max-width: 376px; object-fit:cover">
+                            </a>
+                        </figure><!-- End .entry-media -->
+                        <div class="entry-body">
+                            <div class="entry-meta">
+                               
+                                <a :href="'Post/' + post.id">{{post.created}}</a>
+                               
+                            </div><!-- End .entry-meta -->
+
+                            <h2 class="entry-title">
+                                <a :href="'Post/' + post.id">{{post.title}}</a>
+                            </h2><!-- End .entry-title -->
+
+                            <div class="entry-cats">
+                                в <a v-if="post.category == 'sales'">Акции</a>
+                                <a v-else-if="post.category == 'news'">Новости</a>
+                                <a v-else-if="post.category == 'fresh'">Новинки</a>
+                                <a v-else-if="post.category == 'reviews'">Обзоры</a>
+                                <a v-else-if="post.category == 'compil'">Подборки</a>
+                            </div><!-- End .entry-cats -->
+
+                            <div class="entry-content">
+                                <p style="max-height: 80px; overflow:hidden">{{post.description}}</p>
+                                <a :href="'Post/' + post.id" onclick="getid()" class="read-more">Читать Полностью</a>
+                            </div><!-- End .entry-content -->
+                        </div><!-- End .entry-body -->
+                    </article><!-- End .entry -->
+                </div><!-- End .entry-item -->
+            </div><!-- End .entry-container -->
+
+          
+        </div><!-- End .container -->
+    </div><!-- End .page-content -->
+<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+</main><!-- End .main -->
+
+@section scripts {
+
+    <script src="/js/imagesloaded.pkgd.min.js"></script>
+    <script src="/js/isotope.pkgd.min.js"></script>
+    <script src="~/js/user/blog.js"></script>
+
+}
