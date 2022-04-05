@@ -4,9 +4,9 @@
   
 <br />
 <div align="center">
-
+<a>
     <img src="https://user-images.githubusercontent.com/80919963/161764388-bf043b7f-9611-44ed-bf8e-5c194a9a05dd.png" alt="Logo" width="80" height="80">
-
+</a>
 
   <h3 align="center">Онлайн-Магазин Электронных Сигарет</h3>
 
