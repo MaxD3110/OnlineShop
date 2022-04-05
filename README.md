@@ -5,8 +5,10 @@
 <br />
 <div align="center">
 <a>
-    <img src="https://user-images.githubusercontent.com/80919963/161764388-bf043b7f-9611-44ed-bf8e-5c194a9a05dd.png" alt="Logo" width="80" height="80">
+    <img src="https://user-images.githubusercontent.com/80919963/161778669-b8f66540-971c-4e88-bf4a-3e1d8477336a.png" alt="Logo" width="80" height="80">
 </a>
+  https://user-images.githubusercontent.com/80919963/161764388-bf043b7f-9611-44ed-bf8e-5c194a9a05dd.png
+![ParOptLogoDark]()
 
   <h3 align="center">Онлайн-Магазин Электронных Сигарет</h3>
 
