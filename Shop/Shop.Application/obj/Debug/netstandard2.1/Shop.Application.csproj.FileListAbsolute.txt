@@ -10,3 +10,4 @@ A:\OnlineShop\Shop\Shop.Application\obj\Debug\netstandard2.1\Shop.Application.As
 A:\OnlineShop\Shop\Shop.Application\obj\Debug\netstandard2.1\Shop.Application.csproj.CoreCompileInputs.cache
 A:\OnlineShop\Shop\Shop.Application\obj\Debug\netstandard2.1\Shop.Application.dll
 A:\OnlineShop\Shop\Shop.Application\obj\Debug\netstandard2.1\Shop.Application.pdb
+A:\OnlineShop\Shop\Shop.Application\obj\Debug\netstandard2.1\Shop.Application.csproj.CopyComplete

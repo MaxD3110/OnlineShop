@@ -10,3 +10,4 @@ A:\OnlineShop\Shop\Shop.Database\obj\Debug\netstandard2.1\Shop.Database.Assembly
 A:\OnlineShop\Shop\Shop.Database\obj\Debug\netstandard2.1\Shop.Database.csproj.CoreCompileInputs.cache
 A:\OnlineShop\Shop\Shop.Database\obj\Debug\netstandard2.1\Shop.Database.dll
 A:\OnlineShop\Shop\Shop.Database\obj\Debug\netstandard2.1\Shop.Database.pdb
+A:\OnlineShop\Shop\Shop.Database\obj\Debug\netstandard2.1\Shop.Database.csproj.CopyComplete
