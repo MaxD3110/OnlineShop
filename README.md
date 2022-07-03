@@ -34,7 +34,7 @@
 * Корзина, оплата через сервис Stripe
 * Возможность оставлять отзывы и оценки
 
-###Магазин/Менеджмент товаров
+### Магазин/Менеджмент товаров
 
 ![shop](https://user-images.githubusercontent.com/80919963/177055303-ece48bfb-7633-470e-b687-2b979b13479f.PNG)
 
@@ -48,13 +48,13 @@
 
 ![prod4](https://user-images.githubusercontent.com/80919963/177055317-aa81dd77-6426-45ee-8c14-def11c1bfd7d.PNG)
 
-###Блог
+### Блог
 
 ![blog](https://user-images.githubusercontent.com/80919963/177055308-1d6ae629-8422-41d4-ac65-defbd8589a57.PNG)
 
 ![blog2](https://user-images.githubusercontent.com/80919963/177055312-39a3e231-e30f-43d4-ab7b-377f720661cd.PNG)
 
-###Заказы
+### Заказы
 
 ![щащкь](https://user-images.githubusercontent.com/80919963/177055387-d327371e-e123-468d-a61b-d9a8f991c311.PNG)
 
@@ -62,25 +62,25 @@
 
 ![zak2](https://user-images.githubusercontent.com/80919963/177055357-a058c277-5db8-409f-a5ef-836c9fa349e2.PNG)
 
-###Аккаунты
+### Аккаунты
 
 ![Acc](https://user-images.githubusercontent.com/80919963/177055352-021c0b48-146d-4d19-9b90-1c7dd0167c03.PNG)
 
-###Представления
+### Представления
 
-#Сравнение
+# Сравнение
 
 ![compare](https://user-images.githubusercontent.com/80919963/177055411-5491f883-8e27-4615-8630-b1dcb09b3c4f.PNG)
 
-#Избранные
+# Избранные
 
 ![fav](https://user-images.githubusercontent.com/80919963/177055397-6549d8f9-abd4-4c2b-a925-5a4ee6532e51.PNG)
 
-#Корзина
+# Корзина
 
 ![cart](https://user-images.githubusercontent.com/80919963/177055418-cd031281-d53f-4f63-a70c-8f826caf6a7c.PNG)
 
-##Контакты
+## Контакты
 
 ![contacts](https://user-images.githubusercontent.com/80919963/177055438-8e97fffb-806d-4bec-bc26-34da596f997a.PNG)
 
