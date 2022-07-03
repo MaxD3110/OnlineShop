@@ -14,7 +14,7 @@
 
 ## О проекте
 
-![Главная](https://user-images.githubusercontent.com/80919963/161769551-1463f01c-3546-4bd4-b30b-3783f06e2136.PNG)
+![main](https://user-images.githubusercontent.com/80919963/177055500-7f139c4e-8914-4bee-a5c4-94fffc927ffa.PNG)
 
 
 Этот проект был разработан в связи с защитой дипломного проекта. Март 2022 года, БНТУ.
