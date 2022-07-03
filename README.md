@@ -44,13 +44,20 @@
 
 
 
-### Создан с помощью
+### Стек
 
 Проект использует ниже перечисленные инструменты.
 
-* [Vue.js](https://vuejs.org/)
+* C#
+* ASP.NET Core
+* ASP.NET Identity
+* Entity Framework
+* javaScript ([Vue.js](https://vuejs.org/))
+* Немного [JQuery](https://jquery.com)
 * [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
+* HTML
+* CSS
+* Git
 
 <p align="right"><a href="#top">В начало</a></p>
 
