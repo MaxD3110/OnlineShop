@@ -19,8 +19,7 @@ var app = new Vue({
             window.addEventListener("load", function () {
                 post = JSON.parse(document.getElementById('getPost').value);
                 this.selectedPost = post;
-                console.log(this.selectedPost);
-                var options = {
+                const options = {
                     placeholder: 'Waiting for your precious content',
                     theme: 'snow',
                     readOnly: true,
@@ -34,7 +33,7 @@ var app = new Vue({
                         'link', 'image', 'video',
                         'align']
                 };
-                var editor = new Quill('#quillEditor', options);
+                const editor = new Quill('#quillEditor', options);
                 editor.updateContents(JSON.parse(this.selectedPost.body));
             });
         },

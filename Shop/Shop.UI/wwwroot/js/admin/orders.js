@@ -1,4 +1,4 @@
-﻿Vue.config.devtools = true
+Vue.config.devtools = true
 var total = 0;
 var app = new Vue({
     el: '#app',
@@ -19,71 +19,54 @@ var app = new Vue({
     },
 
     methods: {
-        getOrders() {
+        async getOrders() {
             this.loading = true;
-            axios.get('/orders?status=' + this.status)
-                .then(result => {
-                    this.orders = result.data;
-                    this.loading = false;
-                });
-
+            this.orders = await http.get('/orders?status=' + this.status);
+            this.loading = false;
         },
-        selectOrder(id) {
+        async selectOrder(id) {
             this.loading = true;
-            axios.get('/orders/' + id)
-                .then(result => {
-                    this.selectedOrder = result.data;
-                    for (var i = 0; i < this.selectedOrder.products.length; i++) {
-                        total = total + this.selectedOrder.products[i].totalValue;
-                    };
-                    this.loading = false;
-                }).then(() =>{
-                    document.getElementById("total").innerHTML = "Общая цена заказа: " + total + " рублей";
-            });
-        },
-        decreaseOrderMain(id) {
-            this.loading = true;
-            axios.put('/orders/' + id)
-                .then(result => {
-                    this.loading = false;
-                    this.exitOrder();
-                    this.getOrders();
-                });
-        },
-        updateOrderMain(id) {
-            this.loading = true;
-            axios.put('/orders/' + id)
-                .then(result => {
-                    this.loading = false;
-                    this.exitOrder();
-                    this.getOrders();
-                    toastr["success"]("Статус заказа повышен")
-                });
-        },
-        decreaseOrder() {
-            this.loading = true;
-            axios.put('/orders/' + this.selectedOrder.id, null)
-                .then(result => {
-                    this.loading = false;
-                    this.exitOrder();
-                    this.getOrders();
-                });
-        },
-        updateOrder() {
-            this.loading = true;
-            axios.put('/orders/' + this.selectedOrder.id, null)
-                .then(result => {
-                    this.loading = false;
-                    this.exitOrder();
-                    this.getOrders();
-                    toastr["success"]("Статус заказа повышен")
-                });
-        },
-            exitOrder() {
-                this.selectedOrder = null;
-                total = 0;
+            this.selectedOrder = await http.get('/orders/' + id);
+            for (let i = 0; i < this.selectedOrder.products.length; i++) {
+                total = total + this.selectedOrder.products[i].totalValue;
             }
+            this.loading = false;
+            document.getElementById("total").innerHTML = "Общая цена заказа: " + total + " рублей";
+        },
+        async decreaseOrderMain(id) {
+            this.loading = true;
+            await http.put('/orders/' + id);
+            this.loading = false;
+            this.exitOrder();
+            this.getOrders();
+        },
+        async updateOrderMain(id) {
+            this.loading = true;
+            await http.put('/orders/' + id);
+            this.loading = false;
+            this.exitOrder();
+            this.getOrders();
+            toastr["success"]("Статус заказа повышен");
+        },
+        async decreaseOrder() {
+            this.loading = true;
+            await http.put('/orders/' + this.selectedOrder.id);
+            this.loading = false;
+            this.exitOrder();
+            this.getOrders();
+        },
+        async updateOrder() {
+            this.loading = true;
+            await http.put('/orders/' + this.selectedOrder.id);
+            this.loading = false;
+            this.exitOrder();
+            this.getOrders();
+            toastr["success"]("Статус заказа повышен");
+        },
+        exitOrder() {
+            this.selectedOrder = null;
+            total = 0;
+        }
     },
-    computed: {
-    }
+    computed: {}
 });

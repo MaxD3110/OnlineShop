@@ -26,14 +26,12 @@
 
 @section scripts {
 
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
     <script>
 
         var addOneToWish = function (e) {
             var stockId = e.target.dataset.stockId;
-            axios.post("/Wish/AddOneWish/" + stockId)
-                .then(res => {
+            http.post("/Wish/AddOneWish/" + stockId)
+                .then(() => {
                     updateWish();
                 }).catch(err => {
                     alert(err.error);
@@ -47,14 +45,12 @@
 
         var removeAllFromWish = function (e) {
             var stockId = e.target.dataset.stockId;
-            //var id = "stock-qty-" + stockId;
-            //var el = document.getElementById(id);
             removeFromWish(stockId);
         }
 
         var removeFromWish = function (stockId) {
-            axios.post("/Wish/RemoveWish/" + stockId)
-                .then(res => {
+            http.post("/Wish/RemoveWish/" + stockId)
+                .then(() => {
                     updateWish();
                 }).catch(err => {
                     alert(err.error);
@@ -62,26 +58,19 @@
         }
 
         var updateWish = function () {
-            axios.get('/Wish/GetWishComponent')
-                .then(res => {
-                    var html = res.data;
-                    var el = document.getElementById('wish-nav');
-
-                    el.outerHTML = html;
+            http.get('/Wish/GetWishComponent')
+                .then(html => {
+                    document.getElementById('wish-nav').outerHTML = html;
                 });
-            axios.get('/Wish/GetWishMain')
-                .then(res => {
-                    var html = res.data;
-                    var el = document.getElementById('wish-main');
-
-                    el.outerHTML = html;
-                })
-
+            http.get('/Wish/GetWishMain')
+                .then(html => {
+                    document.getElementById('wish-main').outerHTML = html;
+                });
         }
 
         var addOneToCart = function (stockId) {
-            axios.post("/Cart/AddOne/" + stockId)
-                .then(res => {
+            http.post("/Cart/AddOne/" + stockId)
+                .then(() => {
                     updateCart();
                     toastr["success"]("Товар добавлен в корзину")
                 }).catch(err => {
@@ -89,27 +78,18 @@
                 })
         };
         var updateCart = function () {
-            axios.get('/Cart/GetCartComponent')
-                .then(res => {
-                    var html = res.data;
-                    var el = document.getElementById('cart-nav');
-
-                    el.outerHTML = html;
+            http.get('/Cart/GetCartComponent')
+                .then(html => {
+                    document.getElementById('cart-nav').outerHTML = html;
                 });
-            axios.get('/Cart/GetCartMedium')
-                .then(res => {
-                    var html = res.data;
-                    var el = document.getElementById('cart-med');
-
-                    el.outerHTML = html;
+            http.get('/Cart/GetCartMedium')
+                .then(html => {
+                    document.getElementById('cart-med').outerHTML = html;
                 });
-            axios.get('/Cart/GetCartMain')
-                .then(res => {
-                    var html = res.data;
-                    var el = document.getElementById('cart-main');
-
-                    el.outerHTML = html;
-                })
+            http.get('/Cart/GetCartMain')
+                .then(html => {
+                    document.getElementById('cart-main').outerHTML = html;
+                });
         }
         toastr.options = {
             "closeButton": false,

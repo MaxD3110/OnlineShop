@@ -8,3 +8,14 @@ A:\OnlineShop\Shop\Shop.Domain\obj\Debug\netstandard2.1\Shop.Domain.AssemblyInfo
 A:\OnlineShop\Shop\Shop.Domain\obj\Debug\netstandard2.1\Shop.Domain.csproj.CoreCompileInputs.cache
 A:\OnlineShop\Shop\Shop.Domain\obj\Debug\netstandard2.1\Shop.Domain.dll
 A:\OnlineShop\Shop\Shop.Domain\obj\Debug\netstandard2.1\Shop.Domain.pdb
+D:\Projects\OnlineShop\Shop\Shop.Domain\obj\Debug\netstandard2.1\Shop.Domain.dll
+D:\Projects\OnlineShop\Shop\Shop.Domain\obj\Debug\netstandard2.1\Shop.Domain.pdb
+D:\Projects\OnlineShop\Shop\Shop.Domain\bin\Debug\netstandard2.1\Shop.Domain.deps.json
+D:\Projects\OnlineShop\Shop\Shop.Domain\bin\Debug\netstandard2.1\Shop.Domain.dll
+D:\Projects\OnlineShop\Shop\Shop.Domain\bin\Debug\netstandard2.1\Shop.Domain.pdb
+D:\Projects\OnlineShop\Shop\Shop.Domain\obj\Debug\netstandard2.1\Shop.Domain.csproj.AssemblyReference.cache
+D:\Projects\OnlineShop\Shop\Shop.Domain\obj\Debug\netstandard2.1\Shop.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\OnlineShop\Shop\Shop.Domain\obj\Debug\netstandard2.1\Shop.Domain.AssemblyInfoInputs.cache
+D:\Projects\OnlineShop\Shop\Shop.Domain\obj\Debug\netstandard2.1\Shop.Domain.AssemblyInfo.cs
+D:\Projects\OnlineShop\Shop\Shop.Domain\obj\Debug\netstandard2.1\Shop.Domain.csproj.CoreCompileInputs.cache
+D:\Projects\OnlineShop\Shop\Shop.Domain\obj\Debug\netstandard2.1\Shop.Domain.sourcelink.json

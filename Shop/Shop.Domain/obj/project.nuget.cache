@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "y0d5xg9xTKWaufwJl2dUHp/2MNwppUfii/7vJyzLZoDKJjp4/pI4YmY5OCmsXFR86oWzFlLbll9vZBr0q3HaIw==",
+  "dgSpecHash": "P0eO6jN58oc=",
   "success": true,
-  "projectFilePath": "A:\\OnlineShop\\Shop\\Shop.Domain\\Shop.Domain.csproj",
+  "projectFilePath": "D:\\Projects\\OnlineShop\\Shop\\Shop.Domain\\Shop.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\maksa\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\maksa\\.nuget\\packages\\microsoft.aspnetcore.http.extensions\\2.2.0\\microsoft.aspnetcore.http.extensions.2.2.0.nupkg.sha512",
@@ -133,7 +133,8 @@
     "C:\\Users\\maksa\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\maksa\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\maksa\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\maksa\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Users\\maksa\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\maksa\\.nuget\\packages\\netstandard.library.ref\\2.1.0\\netstandard.library.ref.2.1.0.nupkg.sha512"
   ],
   "logs": []
 }

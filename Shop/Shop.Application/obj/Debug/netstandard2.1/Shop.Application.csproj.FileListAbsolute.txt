@@ -11,3 +11,17 @@ A:\OnlineShop\Shop\Shop.Application\obj\Debug\netstandard2.1\Shop.Application.cs
 A:\OnlineShop\Shop\Shop.Application\obj\Debug\netstandard2.1\Shop.Application.dll
 A:\OnlineShop\Shop\Shop.Application\obj\Debug\netstandard2.1\Shop.Application.pdb
 A:\OnlineShop\Shop\Shop.Application\obj\Debug\netstandard2.1\Shop.Application.csproj.CopyComplete
+D:\Projects\OnlineShop\Shop\Shop.Application\obj\Debug\netstandard2.1\Shop.Application.dll
+D:\Projects\OnlineShop\Shop\Shop.Application\obj\Debug\netstandard2.1\Shop.Application.pdb
+D:\Projects\OnlineShop\Shop\Shop.Application\bin\Debug\netstandard2.1\Shop.Application.deps.json
+D:\Projects\OnlineShop\Shop\Shop.Application\bin\Debug\netstandard2.1\Shop.Application.dll
+D:\Projects\OnlineShop\Shop\Shop.Application\bin\Debug\netstandard2.1\Shop.Application.pdb
+D:\Projects\OnlineShop\Shop\Shop.Application\bin\Debug\netstandard2.1\Shop.Domain.dll
+D:\Projects\OnlineShop\Shop\Shop.Application\bin\Debug\netstandard2.1\Shop.Domain.pdb
+D:\Projects\OnlineShop\Shop\Shop.Application\obj\Debug\netstandard2.1\Shop.Application.csproj.AssemblyReference.cache
+D:\Projects\OnlineShop\Shop\Shop.Application\obj\Debug\netstandard2.1\Shop.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\OnlineShop\Shop\Shop.Application\obj\Debug\netstandard2.1\Shop.Application.AssemblyInfoInputs.cache
+D:\Projects\OnlineShop\Shop\Shop.Application\obj\Debug\netstandard2.1\Shop.Application.AssemblyInfo.cs
+D:\Projects\OnlineShop\Shop\Shop.Application\obj\Debug\netstandard2.1\Shop.Application.csproj.CoreCompileInputs.cache
+D:\Projects\OnlineShop\Shop\Shop.Application\obj\Debug\netstandard2.1\Shop.Application.sourcelink.json
+D:\Projects\OnlineShop\Shop\Shop.Application\obj\Debug\netstandard2.1\Shop.App.3200E812.Up2Date

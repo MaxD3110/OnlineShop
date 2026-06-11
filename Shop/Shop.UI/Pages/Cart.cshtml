@@ -23,15 +23,12 @@
 
 @section scripts {
 
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
     <script>
-
 
         var addOneToCart = function (e) {
             var stockId = e.target.dataset.stockId;
-            axios.post("/Cart/AddOne/" + stockId)
-                .then(res => {
+            http.post("/Cart/AddOne/" + stockId)
+                .then(() => {
                     updateCart();
                 }).catch(err => {
                     console.log(err.error)
@@ -52,38 +49,27 @@
         }
 
         var removeFromCart = function (stockId, qty) {
-            axios.post("/Cart/Remove/" + stockId + '/' + qty)
-                .then(res => {
+            http.post("/Cart/Remove/" + stockId + '/' + qty)
+                .then(() => {
                     updateCart();
-                    
                 }).catch(err => {
                     alert(err.error);
                 })
         }
 
         var updateCart = function () {
-            axios.get('/Cart/GetCartComponent')
-                .then(res => {
-                    var html = res.data;
-                    var el = document.getElementById('cart-nav');
-
-                    el.outerHTML = html;
+            http.get('/Cart/GetCartComponent')
+                .then(html => {
+                    document.getElementById('cart-nav').outerHTML = html;
                 });
-            axios.get('/Cart/GetCartMedium')
-                .then(res => {
-                    var html = res.data;
-                    var el = document.getElementById('cart-med');
-
-                    el.outerHTML = html;
+            http.get('/Cart/GetCartMedium')
+                .then(html => {
+                    document.getElementById('cart-med').outerHTML = html;
                 });
-            axios.get('/Cart/GetCartMain')
-                .then(res => {
-                    var html = res.data;
-                    var el = document.getElementById('cart-main');
-
-                    el.outerHTML = html;
-                })
-
+            http.get('/Cart/GetCartMain')
+                .then(html => {
+                    document.getElementById('cart-main').outerHTML = html;
+                });
         }
         toastr.options = {
             "closeButton": false,

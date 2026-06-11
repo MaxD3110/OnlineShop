@@ -1,15 +1,12 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Shop.Database;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Shop.UI
 {
@@ -25,7 +22,7 @@ namespace Shop.UI
                     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-                    context.Database.EnsureCreated();
+                    context.Database.Migrate();
 
                     if (!context.Users.Any())
                     {
@@ -48,6 +45,8 @@ namespace Shop.UI
                         userManager.AddClaimAsync(adminUser, adminClaim).GetAwaiter().GetResult();
                         userManager.AddClaimAsync(managerUser, managerClaim).GetAwaiter().GetResult();
                     }
+
+                    SeedData.Seed(context);
                 }
             }
             catch(Exception e)

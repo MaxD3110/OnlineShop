@@ -45,16 +45,13 @@
 
 @section scripts {
 
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-
     <script>
         var products = [];
 
         var addOneToCompare = function (e) {
             var stockId = e.target.dataset.stockId;
-            axios.post("/Compare/AddOneCompare/" + stockId)
-                .then(res => {
+            http.post("/Compare/AddOneCompare/" + stockId)
+                .then(() => {
                     updateCompare();
                 }).catch(err => {
                     alert(err.error);
@@ -70,20 +67,16 @@
             var doc = document.getElementsByClassName("icon-close");
             var count = document.getElementsByClassName("icon-close").length;
             for (var i = 0; i < count; i++) {
-
-                console.log(doc.length);
                 stockId = doc[i].getAttribute("data-stockid");
-                console.log(stockId);
-                axios.post("/Compare/RemoveCompare/" + stockId)
-
-            updateCompare();
+                http.post("/Compare/RemoveCompare/" + stockId)
+                updateCompare();
             }
             updateCompare();
         }
 
         var removeFromCompare = function (stockId) {
-            axios.post("/Compare/RemoveCompare/" + stockId)
-                .then(res => {
+            http.post("/Compare/RemoveCompare/" + stockId)
+                .then(() => {
                     updateCompare();
                 }).catch(err => {
                     alert(err.error);
@@ -91,21 +84,15 @@
         }
 
         var updateCompare = function () {
-            axios.get('/Compare/GetCompareMedium')
-                .then(res => {
-                    var html = res.data;
-                    var el = document.getElementById('compare-med');
-
-                    el.outerHTML = html;
+            http.get('/Compare/GetCompareMedium')
+                .then(html => {
+                    document.getElementById('compare-med').outerHTML = html;
                 });
-            axios.get('/Compare/GetCompareMain')
-                .then(res => {
-                    var html = res.data;
-                    var el = document.getElementById('compare-main');
-                    el.outerHTML = html;
+            http.get('/Compare/GetCompareMain')
+                .then(html => {
+                    document.getElementById('compare-main').outerHTML = html;
                     window.location.reload();
-                })
-
+                });
         }
 
         window.onload = function () {

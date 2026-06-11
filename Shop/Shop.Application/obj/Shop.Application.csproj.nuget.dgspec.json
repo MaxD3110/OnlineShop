@@ -1,41 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "A:\\OnlineShop\\Shop\\Shop.Application\\Shop.Application.csproj": {}
+    "D:\\Projects\\OnlineShop\\Shop\\Shop.Application\\Shop.Application.csproj": {}
   },
   "projects": {
-    "A:\\OnlineShop\\Shop\\Shop.Application\\Shop.Application.csproj": {
+    "D:\\Projects\\OnlineShop\\Shop\\Shop.Application\\Shop.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "A:\\OnlineShop\\Shop\\Shop.Application\\Shop.Application.csproj",
+        "projectUniqueName": "D:\\Projects\\OnlineShop\\Shop\\Shop.Application\\Shop.Application.csproj",
         "projectName": "Shop.Application",
-        "projectPath": "A:\\OnlineShop\\Shop\\Shop.Application\\Shop.Application.csproj",
+        "projectPath": "D:\\Projects\\OnlineShop\\Shop\\Shop.Application\\Shop.Application.csproj",
         "packagesPath": "C:\\Users\\maksa\\.nuget\\packages\\",
-        "outputPath": "A:\\OnlineShop\\Shop\\Shop.Application\\obj\\",
+        "outputPath": "D:\\Projects\\OnlineShop\\Shop\\Shop.Application\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "A:\\VisualStudio\\Other\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\maksa\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\maksa\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.1": {
             "targetAlias": "netstandard2.1",
             "projectReferences": {
-              "A:\\OnlineShop\\Shop\\Shop.Domain\\Shop.Domain.csproj": {
-                "projectPath": "A:\\OnlineShop\\Shop\\Shop.Domain\\Shop.Domain.csproj"
+              "D:\\Projects\\OnlineShop\\Shop\\Shop.Domain\\Shop.Domain.csproj": {
+                "projectPath": "D:\\Projects\\OnlineShop\\Shop\\Shop.Domain\\Shop.Domain.csproj"
               }
             }
           }
@@ -44,7 +36,13 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "netstandard2.1": {
@@ -65,43 +63,42 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "NETStandard.Library.Ref",
+              "version": "[2.1.0, 2.1.0]"
+            }
+          ],
           "frameworkReferences": {
             "NETStandard.Library": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\maksa\\.dotnet\\sdk\\10.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "A:\\OnlineShop\\Shop\\Shop.Domain\\Shop.Domain.csproj": {
+    "D:\\Projects\\OnlineShop\\Shop\\Shop.Domain\\Shop.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "A:\\OnlineShop\\Shop\\Shop.Domain\\Shop.Domain.csproj",
+        "projectUniqueName": "D:\\Projects\\OnlineShop\\Shop\\Shop.Domain\\Shop.Domain.csproj",
         "projectName": "Shop.Domain",
-        "projectPath": "A:\\OnlineShop\\Shop\\Shop.Domain\\Shop.Domain.csproj",
+        "projectPath": "D:\\Projects\\OnlineShop\\Shop\\Shop.Domain\\Shop.Domain.csproj",
         "packagesPath": "C:\\Users\\maksa\\.nuget\\packages\\",
-        "outputPath": "A:\\OnlineShop\\Shop\\Shop.Domain\\obj\\",
+        "outputPath": "D:\\Projects\\OnlineShop\\Shop\\Shop.Domain\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "A:\\VisualStudio\\Other\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\maksa\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\maksa\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -114,7 +111,13 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "netstandard2.1": {
@@ -135,16 +138,23 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "NETStandard.Library.Ref",
+              "version": "[2.1.0, 2.1.0]"
+            }
+          ],
           "frameworkReferences": {
             "NETStandard.Library": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\maksa\\.dotnet\\sdk\\10.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }
